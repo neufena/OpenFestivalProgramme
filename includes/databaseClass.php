@@ -8,6 +8,8 @@
  *
  * @author neufena
  */
+require_once __DIR__ . '/../config.php';
+
 class database {
 
     private $db;
