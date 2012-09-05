@@ -1,9 +1,6 @@
 <?php
 require_once '../includes/programmeClass.php';
 $prog = new programme();
-ob_start();
 $prog->getAllData();
-ob_flush();
-
-
+file_put_contents(__DIR__ . '/../database/initData.json', $prog->getAllData());
 ?>

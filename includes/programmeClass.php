@@ -130,8 +130,9 @@ class programme {
                 $acts[$k]['image'] = base64_encode($img);
             }
             if($act['video']!='') {
-                $youtube = file_get_contents('http://img.youtube.com/vi/'.$act['video'].'/0.jpg');
-                $acts[$k]['video'] = base64_encode($youtube);
+                //$youtube = file_get_contents('http://img.youtube.com/vi/'.$act['video'].'/0.jpg');
+                //$acts[$k]['video'] = base64_encode($youtube);
+                $acts[$k]['video'] = '';
             }
         }
         $allData = array (

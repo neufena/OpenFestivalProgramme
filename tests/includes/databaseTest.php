@@ -28,9 +28,9 @@ class databaseTest extends PHPUnit_Extensions_Database_TestCase {
     {
         if ($this->conn === null) {
             if (self::$pdo == null) {
-                self::$pdo = new PDO('mysql','localhost','mobileProgrammeUnitTest','root','parsedto');
+                self::$pdo = new PDO($GLOBALS['driver'], $GLOBALS['host'], $GLOBALS['database'], $GLOBALS['user'], $GLOBALS['password']);
             }
-            $this->conn = $this->createDefaultDBConnection(self::$pdo, 'mobileProgrammeUnitTest');
+            $this->conn = $this->createDefaultDBConnection(self::$pdo, $GLOBALS['database']);
         }
 
         return $this->conn;

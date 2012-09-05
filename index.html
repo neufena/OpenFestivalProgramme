@@ -15,19 +15,32 @@
             
                 alert('here');
                 html5sql.openDatabase(
-                    databaseName,
-                    displayName,
-                    estimatedSize
-                );
+                databaseName,
+                displayName,
+                estimatedSize
+            );
                 html5sql.process(
-                    "SELECT * FROM tblVersion",
-                    function(){
-                        console.log("Database Exists");
-                    },
-                    function(error, statement){
-                        console.log("Database Does Not Exist");
-                    }    
-                );
+                "SELECT * FROM tblVersion",
+                function(){
+                    console.log("Database Exists");
+                },
+                function(error, statement){
+                    console.log("Database Does Not Exist");
+                    $.get('database/mobileProgramme.sql', function(sql) {
+                        console.log("QL is " + sql);
+                        html5sql.process(sql),
+                        function(){
+                            console.log("db ceate SQL ran correctly");
+                        },
+                        function(){
+                            console.log("Database create failed");
+                        }
+                        
+                    });
+                    
+                        
+                }    
+            );
                 e.preventDefault();    
             });
             
@@ -41,8 +54,6 @@
             <div data-role="header" >
                 <h1>SuperByte 2012</h1>
                 <div id="logoWrap">
-                    
-                    
                 </div>
             </div><!-- /header -->
 
@@ -62,374 +73,6 @@
 
         </div><!-- /page -->
 
-        <div data-role="page" data-add-back-btn="true" id="MainStage">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Main Stage</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<ul data-role="listview" data-inset="true" data-filter="true">
-<li><a href="#MegaByteVs[8BitIceCream]">11:00pm: MegaByte Vs [8 Bit IceCream]</a></li>
-<li><a href="#Dubmood">10:00pm: Dubmood</a></li>
-<li><a href="#HenryHomesweet">09:00pm: Henry Homesweet</a></li>
-<li><a href="#DeadBeatBlast">08:00pm: DeadBeatBlast</a></li>
-<li><a href="#Chipzel">07:15pm: Chipzel</a></li>
-<li><a href="#HarleyLikesMusic">06:30pm: HarleyLikesMusic</a></li>
-<li><a href="#Superpowerless">05:45pm: Superpowerless</a></li>
-<li><a href="#_ensnare_">05:00pm: _ensnare_</a></li>
-<li><a href="#B-Type">04:15pm: B-Type</a></li>
-<li><a href="#FragileChaos">03:30pm: Fragile Chaos</a></li>
-<li><a href="#XCriticalStrikeX">02:45pm: X Critical Strike X</a></li>
-<li><a href="#SkinWalker">02:00pm: Skin Walker</a></li>
-</ul>
-</div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="BigScreen">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Big Screen</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<ul data-role="listview" data-inset="true" data-filter="true">
-<li><a href="#NanimeW">10:30pm: Joysticks (1983)</a></li>
-<li><a href="#NanimeW">08:45pm: Street Fighter II: The Animated Movie (1994)</a></li>
-<li><a href="#NanimeW">07:00pm: The Wizard (1989)</a></li>
-<li><a href="#SuperEffectiveVsComputerClub">03:00pm: Big Screen Game Tournaments + Shorts</a></li>
-<li><a href="#NanimeW">02:00pm: Sonic The Hedgehog: The Movie (1996)</a></li>
-</ul>
-</div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="GamingArea">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Gaming Area</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<ul data-role="listview" data-inset="true" data-filter="true">
-<li><a href="#ComputerClub">05:45pm: Mario Kart 64 Tournament</a></li>
-<li><a href="#ComputerClub">04:15pm: Streetfighter Tournament</a></li>
-<li><a href="#ComputerClub">03:00pm: Bomberman Tournament</a></li>
-<li><a href="#ComputerClub">02:00pm: Classic Consoles, Free Play All Day</a></li>
-</ul>
-</div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="B-Type">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>B-Type</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/btype.jpeg" alt="B-Type" /></div><div class="description"><p> B-Type are the United Kingdoms foremost nerdcore band! A passion for live performance and a reputation for prolific online releases fuel this act.   Known for their audience participation freestyle sessions, 8 bit beats mixed with live synths, energetic shows and sing-along chorus, B-Type is the most talked about rap outfit in Sunderland. B-Type have played across the UK and in the USA, sharing the stage with acts including, but not limited to, MC Frontalot, The Megas, Sound of Rum, and Alt-Track. </p><p><a href="http://www.facebook.com/btypemusic">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=qkZPUUshaFs"><img src="http://img.youtube.com/vi/qkZPUUshaFs/0.jpg" alt="B-Type" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="CalmDownKidder">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>CalmDownKidder</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/calmdownkidderdj.jpeg" alt="CalmDownKidder" /></div><div class="description"><p align="left"> Mr James Bentley, mastermind behind <a href="https://www.facebook.com/thetinfoilhatbrigade" target="_blank">The Tin Foil Hat Brigade</a> and Liverpool's legendary chipmusic 'net label CalmDownKidder shall be performing one of his high-energy DJ sets as part of our after party. Expect  the finest chipmusic, 8 bit remixes and who-knows-what as we let Mr Bentley loose on an unsuspecting SuperByte. </p><p><a href="http://calmdownkidder.com/records/">Website</a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="Chipzel">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Chipzel</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/chipzel.jpeg" alt="Chipzel" /></div><div class="description"><p> Chipzel is the alias of Niamh Houston, an independent Northern Irish chip-musician who indulges in the use of Gameboys to create energetic, melodic dance tracks.   Through taking the original 8bit sound and manipulating it into something frantically hard-hitting, A real  favourite at MegaByte's monthly nights, Chipzel has played a number of high profile shows including <a href="http://blipfestival.org/" target="_blank">Blip Festival NYC</a>, <a href="http://calmdownkidder.com/gigs.html" target="_blank">ChipFest</a> and <a href="https://www.facebook.com/gamepakcollective" target="_blank">GamePak</a>. Chipzel has seen crowds of all ages turn to ?raving loons?, taken right back to their days of retro gaming.&nbsp; </p><p><a href="http://www.facebook.com/chipzel">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=GWy3U5xwg08"><img src="http://img.youtube.com/vi/GWy3U5xwg08/0.jpg" alt="Chipzel" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="ComputerClub">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Computer Club</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/gaming.jpg" alt="Computer Club" /></div><div class="description"><p>Upstairs we have The Computer Club providing an entire array of consoles and games to play on, everything from Micro Machines to Pong will be playable. Also there are retro game tournaments for Bomberman, Street Fighter, and Mario Kart 64 in the cinema section. Sign-ups sheets for the tournaments shall be upstairs in the gaming area, if you want to sign up let one of the gaming area crew know and they will add your name to the list!</p>
-
-<p><strong>3pm: Bomberman Tournament</strong></br>
-This will be a 16 player tournament on the Saturn version of the game, consisting of two 8-player elimination rounds, followed by a one-vs-one final! This is one not to be missed!</p>
-
-<p><strong>4:15pm: Street Fighter Tournament</strong><br />
-This is an 8-player single elimination ladder battle to the death (or at least knock-out), to celebrate it's 25th anniversary. There will be surprises galore, as there will be three different versions of the game being used in the tournament, which games are being used are a closely guarded secret!</p>
-
-<p><strong>5:45pm: Mario Kart 64 Tournament</strong><br />
-Four races to kick this 16 player tournament off to a flying start in the first round, and four races in the second, however with these two rounds you qualify for the next round if you come in first or second place, however in the final the stakes are raised as it will be an every-man-for-themselves battle mode game, where only one person will walk out as SuperByte 2012 Mario Kart 64 Grand Champion!</p><p><a href="https://www.facebook.com/groups/127466207362553/">Website</a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="DeadBeatBlast">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>DeadBeatBlast</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/deadbeatblast.jpeg" alt="DeadBeatBlast" /></div><div class="description"><p>In addition to being a musician &amp; DJ, he has also become widely renowned for his visual work, creating live video shows using improvised techniques such as circuit and data bending, as well as sampling via old computer hardware and cameras. His act is raw and powerful, he has performed nearly 100 shows to date, in several cities including Toronto, Montreal, and New York. </p><p><a href="http://www.deadbeatblast.com/">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=b80SvxqAhzs"><img src="http://img.youtube.com/vi/b80SvxqAhzs/0.jpg" alt="DeadBeatBlast" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="DJ_Y4nni">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>DJ_Y4nni</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/dj_y4nni.jpeg" alt="DJ_Y4nni" /></div><div class="description"><p> An unhealthy obsession with video games from a young age never did anyone any harm, right? Ask DJ_Y4nni if you don't believe us; he's worked on over fifty titles since 2007 as a tester (lucky git). Nowdays when he isn't making his own video games, he breaks out the decks, and has DJ'd many places over the years including The Krazyhouse in Liverpool, Carling Weekend Leeds Festival and <a href="http://www.analoguetrash.co.uk" target="_blank">AnalogueTrash</a> in Manchester.<br>
-        <br>
-      DJ_Y4nni is repping Team <a href="http://www.megabyteclub.co.uk" target="_blank">MegaByte</a>'s DJ's at SuperByte by bringing his own brand of off-kilter messed-up, 8 bit beats to the festival.</p><p><a href="http://www.facebook.com/pages/DJ_Y4nni/227385723980800">Website</a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="Dubmood">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Dubmood</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/dubmood.jpg" alt="Dubmood" /></div><div class="description"><p>Dubmood is a Swedish chip music producer ex-pat in Marseilles with roots in the pre-internet software piracy scene. Long-time member of the infamous <a href="http://en.wikipedia.org/wiki/Razor_1911" target="_blank">Razor 1911</a>, active since 1996 and considered somewhat of a style-originator and reference in the chip music community, Dubmood has brought mainstream popularity to the genre and inspired hordes of kids to bring out their Game Boys and shout 8bit on the internet. In 2004, dubmood left cyberspace to tour the world in different coalitions, founded <a href="http://www.dataairlines.net/" target="_blank">Data Airlines</a> and gained recognition as a popular producer and remixer. Dubmood's music is best described as a dance floor-friendly fusion of 80s computer game music, IDM &amp; Electro House with a lot of indie-rock &amp; hip hop references.</p><p><a href="http://www.dataairlines.net/dubmood/">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=qDqoaW_l08k"><img src="http://img.youtube.com/vi/qDqoaW_l08k/0.jpg" alt="Dubmood" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="FragileChaos">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Fragile Chaos</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/fragilechaos.jpeg" alt="Fragile Chaos" /></div><div class="description"><p>Fragile Chaos likes to mash it up. This Scottish  musician is well known for mixing all the best bits of his favourite electronic genres into high-energy, 8-bit-inspired tracks that have already scored him a number of high-profile live shows in his native Scotland, as well as radio airplay on no less than the BBC's own <a href="http://soundcloud.com/fragile-chaos/luvbyte-on-radio-1-bbc" target="_blank">'Introducing' show</a>.</p><p><a href="http://www.facebook.com/FragileChaos">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=utqjzH-P22w"><img src="http://img.youtube.com/vi/utqjzH-P22w/0.jpg" alt="Fragile Chaos" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="Freecode">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Freecode</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/freecodecollective.jpeg" alt="Freecode" /></div><div class="description"><p>Freecode?s networked performances are immersive  experiences that combine hacked electronics, custom programmed software,  wireless controllers, projection-mapped generative images and digitally created  sounds. The interaction between the performers is just as important as the  results however and what makes Freecode exciting is the live sharing of data,  sound and images between members during performances, pushing notions of  improvisation.</p><p><a href="http://freecodecollective.tumblr.com/">Website</a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="HarleyLikesMusic">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>HarleyLikesMusic</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/harleylikesmusic.jpeg" alt="HarleyLikesMusic" /></div><div class="description"><p>Sheffield's master of the Nintendo DS, HarleyLikesMusic produces epic electro-party bass using just a console, a stylus and a lot of energy. Pushing the limits of the Korg DS10 software ever further, Harley's energetic live performances, catchy hooks and pounding beats have impressed crowds both within the micromusic scene and beyond. </p><p><a href="http://harleylikesmusic.com/">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=1ku8OQZdZVs"><img src="http://img.youtube.com/vi/1ku8OQZdZVs/0.jpg" alt="HarleyLikesMusic" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="HenryHomesweet">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Henry Homesweet</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/henryhomesweet.jpeg" alt="Henry Homesweet" /></div><div class="description"><p> Henry Homesweet is a micro-musician from the UK. He explores archaic technology to capture the raw waveforms of the 80's in a bid to resurface creativity through limitation. He has performed at parties worldwide with his eclectic live sets, replacing DJ decks with Nintendo Gameboy's &amp; delivering Lo-Fi synchronized techno &amp; electro fresh from the chips. </p><p><a href="http://www.henryhomesweet.co.uk/">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=YtOpThxI0xg"><img src="http://img.youtube.com/vi/YtOpThxI0xg/0.jpg" alt="Henry Homesweet" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="LastKnight">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>LastKnight</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/lastknightdjvj.jpeg" alt="LastKnight" /></div><div class="description"><p>LastKnight has produced visuals for <a href="http://www.ultrachip.co.uk/" target="_blank">Ultrachip Festival</a>, Sub Focus, [8-Bit IceCream] and 4th Bass as well as some horribly uncool people like Mr. Hudson - he is well known for throwing out fast paced, audio-reactive pixelated shapes that are perfect for getting those glosticks waving to and will bringing his unique brand of visual goodness to SuperByte as well as DJing at the after party. </p><p><a href="http://www.facebook.com/8biticecream">Website</a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="MegaByteVs[8BitIceCream]">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>MegaByte Vs [8 Bit IceCream]</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/afterparty.jpg" alt="MegaByte Vs [8 Bit IceCream]" /></div><div class="description"><p>We'll be ending the night in style and welcoming the North East's premier geek  club night <a href="https://www.facebook.com/8biticecream" target="_blank">[8 Bit IceCream]</a> to go head to head with Manchester's own <a href="http://www.megabyteclub.co.uk" target="_blank">MegaByte</a> in an after-party showdown of epic proportions. </p>
-<p><a href="#LastKnight">LastKnight</a></p>
-<p><a href="#CalmDownKidder"> CalmDownKidder </a></p>
-<p><a href="##DJ_Y4nni"> DJ_Y4NNI </a></p>
-
-</div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="NanimeW">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>NanimeW</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/nanimewlogo.jpeg" alt="NanimeW" /></div><div class="description"><p align="left">With all the awesome and exciting stuff happening at SuperByte you'll be needing a place to chill and unwind, maybe take in a film. We're pleased to confirm that our good friends at <a href="http://www.nanimew.org.uk/" target="_blank">NanimeW</a> will be hosting our film screening lounge for the day. You can expect a range of short and feature length cult video-game-related films, all screened for your viewing pleasure. </p>
-<p align="left"><strong>Showing at SuperByte 2012:</strong></p>
-
-<p><strong>2:00pm : Sonic the Hedgehog the Movie (1996)</strong></p>
- 
-<p>The brave blue hero is back! And this time, it's more than just fun and games. That's right, Sonic the Hedgehog is starring in his own motion picture, filled with all the fast-paced energy and action-packed excitement that Sonic's famous for! Dig this: Sonic's arch nemesis Dr. Robotnik has been banished from the Land of Darkness by an evil Metal Robotnik. And if that wasn't bad enough, the devious doctor tells Sonic that the Robot Generator has been sabotaged and will blow Planet Freedom to kingdom come. But what could possibly make Sonic trust his worst enemy? What could make him risk life and paw? Surely not the words of Dr. Robotnik. Not even the pleas of the President. It's not until the President's beautiful daughter Sara turns on the charm that Sonic springs into action. But does Sara really have eyes for Sonic, or is she sweet on the new kid on the block, the never-before-seen Hyper Metal Sonic?</p>
- 
-<p><a href="http://www.imdb.com/title/tt0237765/">http://www.imdb.com/title/tt0237765/</a>
-
-<p><strong>7:00pm : The Wizard (1989)</strong></p>
- 
-<p>Corey refuses to let his emotionally disturbed younger brother, Jimmy be institutionalized, and the two run off together. They soon join forces with a resourceful girl, who notices that Jimmy has an uncanny knack for video games. Evading their parents and a sinister bounty hunter, the trio head for a climatic showdown at the video game championships in California, where Jimmy can realize a dream no one believed he was capable of. </p>
- 
-<p><a href="http://www.imdb.com/title/tt0098663/">http://www.imdb.com/title/tt0098663/</a></p>
- 
- 
-<p><strong>8:45pm : Street Fighter II: The Animated Movie (1994)</strong></p>
- 
-<p>Bison, the ruthless leader of the international terrorist organization Shadowlaw, has been desperately searching for the greatest fighter on the planet for years. He finds it in Ryu, a young wanderer who never stays in one place long enough for Bison to find him. He does, however, get a fix on Ken Masters, an American martial arts champion who studied with Ryu as a child under the same master. Meanwhile, Major Guile of the United States Army is forced to team up with Chun Li from China in hopes of apprehending Bison and putting a stop his international ring of crime. </p>
- 
-<p><a href="http://www.imdb.com/title/tt0114563/">http://www.imdb.com/title/tt0114563/</a></p>
- 
- 
-<p><strong>10:30pm : Joysticks (1983)</strong></p>
- 
-<p>When a top local businessman and his two bumbling nephews try to shut down the town's only video arcade, arcade employees and patrons fight back.</p>
- 
-<p><a href="http://www.imdb.com/title/tt0085764/">http://www.imdb.com/title/tt0085764/</a></p>
- <p><a href="http://www.nanimew.org.uk/">Website</a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="SkinWalker">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Skin Walker</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/skinwalker.jpeg" alt="Skin Walker" /></div><div class="description"><p>Returning to the 8-bit scene in the build up to the  summer of 2010, his ideas changed, and his take on music became more justified.  With an early debut album under a new name released in May 2010 for free on  Sociopath Recordings entitled 'Berserker', a new sound was created and never  left behind and the sound  of the 8-bit sound chip has never been heard any clearer.</p><p><a href="http://www.facebook.com/pages/Skin-Walker/103376619748560">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=Hdq612-tJLY"><img src="http://img.youtube.com/vi/Hdq612-tJLY/0.jpg" alt="Skin Walker" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="Superpowerless">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>Superpowerless</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/superpowerless.jpeg" alt="Superpowerless" /></div><div class="description"><p> Superpowerless is Oliver Hindle; an English Singer-Songwriter from Leeds, UK. He self produces music combining pop/rock songs with electronic sounds created using synthesizers, Virtual Studio Technology and circuit bent video game consoles such as Nintendo Game Boy, Commodore 64 and the Nintendo Entertainment System. Superpowerless was the hand selected winner of the 2009 MTV / Vodafone Fast Track competition. He   is best known in chiptune and video game culture for playing chaotic live shows and for embracing a do it yourself ethic, self-producing his recordings and self-distributing them through online social networking channels.  </p><p><a href="http://www.superpowerless.co.uk/">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=ml7C82seJyk"><img src="http://img.youtube.com/vi/ml7C82seJyk/0.jpg" alt="Superpowerless" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="XCriticalStrikeX">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>X Critical Strike X</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/xcriticalstrikex.jpeg" alt="X Critical Strike X" /></div><div class="description"><p> X Critical Strike X produces and performs bouncy, feel good chiptunes and computer-game-soundtrack-style music on a Nintendo DS. 2011 saw him successfully releasing his <a href="http://xcriticalstrikex.bandcamp.com/" target="_blank">Starfighter</a> album and making his live debut in mainland Europe at <a href="https://www.facebook.com/EightBitHeroes" target="_blank">8BitHeroes</a> in Belgium. 2012 is looking increasingly bright for X Critical Strike X. </p><p><a href="http://www.facebook.com/xcriticalstrikex">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=wGeV6opja04"><img src="http://img.youtube.com/vi/wGeV6opja04/0.jpg" alt="X Critical Strike X" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-<div data-role="page" data-add-back-btn="true" id="_ensnare_">
-<div data-role="header">
-<a href="#" data-rel="back" data-icon="back" >Back</a>
-<h1>_ensnare_</h1>
-<a href="#home" data-icon="home" >Home</a>
-</div><!-- /header -->
-<div data-role="content">
-<div class="picture"><img src="images/ensnare.jpeg" alt="_ensnare_" /></div><div class="description"><p> _ensnare_ is the lo-fi alias of Paul "nervous_testpilot" Taylor, a man who proves you can never have too many silly names. Best known for his soundtrack to the award-winning indie computer game <a href="http://www.frozensynapse.com/" target="_blank">Frozen Synapse</a>, Paul has also been a long-term member of the micromusic / chiptune / fakebit / whatever movement; performing at events as diverse as Microdisko Oslo and Marseilles' MAIN#2 demoparty.<br>
-        <br>
-      Expect warm housey bleeps and scorching melodies thundering out of an under-powered laptop. </p><p><a href="http://www.ensnare8bit.blogspot.com/">Website</a></div><div class="video"><a href="http://m.youtube.com/watch?v=atkVBWOjZhM"><img src="http://img.youtube.com/vi/atkVBWOjZhM/0.jpg" alt="_ensnare_" /></a></div></div><!-- /content -->
-<div data-role="footer">
-<a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-<h1>1st September 2012</h1>
-</div><!-- /footer -->
-</div><!-- /page -->
-
-        <!-- Artists Index -->
-        <div data-role="page" data-add-back-btn="true" id="artists">
-
-            <div data-role="header">
-                <a href="#" data-rel="back" data-icon="back" >Back</a>
-                <h1>Artists</h1>
-                <a href="#home" data-icon="home" >Home</a>
-            </div><!-- /header -->
-
-            <div data-role="content">
-                <ul data-role="listview" data-inset="true" data-filter="true">
-                    <li><a href="#B-Type">B-Type</a></li><li><a href="#CalmDownKidder">CalmDownKidder</a></li><li><a href="#Chipzel">Chipzel</a></li><li><a href="#ComputerClub">Computer Club</a></li><li><a href="#DeadBeatBlast">DeadBeatBlast</a></li><li><a href="#DJ_Y4nni">DJ_Y4nni</a></li><li><a href="#Dubmood">Dubmood</a></li><li><a href="#FragileChaos">Fragile Chaos</a></li><li><a href="#Freecode">Freecode</a></li><li><a href="#HarleyLikesMusic">HarleyLikesMusic</a></li><li><a href="#HenryHomesweet">Henry Homesweet</a></li><li><a href="#LastKnight">LastKnight</a></li><li><a href="#MegaByteVs[8BitIceCream]">MegaByte Vs [8 Bit IceCream]</a></li><li><a href="#NanimeW">NanimeW</a></li><li><a href="#SkinWalker">Skin Walker</a></li><li><a href="#Superpowerless">Superpowerless</a></li><li><a href="#XCriticalStrikeX">X Critical Strike X</a></li><li><a href="#_ensnare_">_ensnare_</a></li>                </ul>
-
-
-            </div><!-- /content -->
-
-            <div data-role="footer">
-                <a href="#" data-rel="back" data-icon="back" class="ui-btn-left">Back</a>
-                <h1>1st September 2012</h1>
-            </div><!-- /footer -->
-
-        </div><!-- /page -->
+       
     </body>
 </html>
