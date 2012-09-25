@@ -17,12 +17,8 @@ switch ($_GET['action']) {
         $version[] = $prog->getDBVersion();
         echo json_encode($version);
         break;
-    case 'getCreateSQL':
-        echo json_encode($prog->getCreateSQL());
-        break;
     case 'getData';
        echo $prog->getAllData();
-        
 }
 
 ?>

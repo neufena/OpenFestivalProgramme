@@ -23,13 +23,21 @@
                 );
                     html5sql.process(
                     "SELECT * FROM tblVersion",
-                    function(){
-                        console.log("Database Exists");
+                    function(tx, results){
+                        var len = results.rows.length;
+                        console.log("Database Exists - update data");
+                        console.log("Database Contains version - check is same as online");
+                        var local = results.rows.item(i).dbVersion
+                        console.log("Database Exists - update data");
+                        $.get(ajaxHost + 'AJAX/requestHander.php?action=getVersion', function(rtn,local) {
+                            console.log('Data Returned was ' + rtn);
+                        });                     
+                        
                     },
                     function(error, statement){
                         console.log("Database Does Not Exist");
                         $.get('database/mobileProgramme.sql', function(sql) {
-                            console.log("SQL is " + sql);
+                            //console.log("SQL is " + sql);
                             html5sql.process(sql),
                             function(){
                                 console.log("db ceate SQL ran correctly");
