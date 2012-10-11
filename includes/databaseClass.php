@@ -3,12 +3,10 @@
 /**
  * Base database class,
  * 
- * @todo move DB configuration to a config file
  * @todo Refactor for better error handling
  *
  * @author neufena
  */
-require_once __DIR__ . '/../config.php';
 
 class database {
 

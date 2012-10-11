@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS tblAct;
 CREATE TABLE tblAct (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -8,6 +9,7 @@ CREATE TABLE tblAct (
   page TEXT
   );
 
+DROP TABLE IF EXISTS tblActStage;
 CREATE TABLE tblActStage (
   day INTEGER,
   stageID INTEGER,
@@ -16,6 +18,7 @@ CREATE TABLE tblActStage (
   duration REAL
 );
 
+DROP TABLE IF EXISTS tblEvent;
 CREATE TABLE tblEvent (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -24,7 +27,7 @@ CREATE TABLE tblEvent (
   venue TEXT
 );
 
-
+DROP TABLE IF EXISTS tblStage;
 CREATE TABLE tblStage (
   id INTEGER PRIMARY KEY,
   name TEXT,
@@ -32,7 +35,7 @@ CREATE TABLE tblStage (
   publishTimes INTEGER
 );
 
-
+DROP TABLE IF EXISTS tblVersion;
 CREATE TABLE tblVersion (
   appVersion REAL PRIMARY KEY,
   dbVersion REAL

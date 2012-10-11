@@ -2,91 +2,72 @@
 <!DOCTYPE html> 
 <html> 
     <head> 
-        <title>SuperByte 2012</title> 
+        <title></title> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.min.css" />
         <link rel="stylesheet" href="css/style.css" />
         <script src="js/jquery-1.7.2.min.js"></script>
-        <script src="js/jquery.mobile-1.1.1.min.js"></script>
+        <script src="js/jquery.mobile-1.2.0.min.js"></script>
         <script type="text/javascript" src="js/html5sql.js"></script>
         <script type="text/javascript" src="js/config.js"></script>
+        <script type="text/javascript" src="js/mobileProgrammeClass.js"></script>
         <script type="text/javascript">
-            var updated;
-            $(document).bind( "pagebeforechange", function( e, data ) {
-                if(updated != true) {
-                    e.preventDefault();  
-                    alert('here');
-                    html5sql.openDatabase(
-                    databaseName,
-                    displayName,
-                    estimatedSize
-                );
-                    html5sql.process(
-                    "SELECT * FROM tblVersion",
-                    function(tx, results){
-                        var len = results.rows.length;
-                        console.log("Database Exists - update data");
-                        console.log("Database Contains version - check is same as online");
-                        var local = results.rows.item(i).dbVersion
-                        console.log("Database Exists - update data");
-                        $.get(ajaxHost + 'AJAX/requestHander.php?action=getVersion', function(rtn,local) {
-                            console.log('Data Returned was ' + rtn);
-                        });                     
-                        
-                    },
-                    function(error, statement){
-                        console.log("Database Does Not Exist");
-                        $.get('database/mobileProgramme.sql', function(sql) {
-                            //console.log("SQL is " + sql);
-                            html5sql.process(sql),
-                            function(){
-                                console.log("db ceate SQL ran correctly");
-                            },
-                            function(){
-                                console.log("Database create failed");
-                            }
-                        
-                        });
-                    
-                        
-                         
-                    }    
-                );
-                    
-                } else {
-                    console.log("Already up to date, continue with jqm");
-                }
+            var prog = new mobileProgramme();
+            prog.initProgramme();
+            $(document).bind( "pageinit", function() { 
+                $(document).bind( "pagebeforechange", function(e, data) {
+                    console.log('pagebeforechange event');
+                    //prog.changePage(e, data);
+                    //e.preventDefault();
+                });
+                
             });
             
-            
-        </script>     
+        </script>
     </head> 
-    <body> 
+    <body>
+        <div data-role="page" id="splash">
+            <div data-role="content"> 
+                <h1>This will contain a splash screen with 'loading' messages</h1>
+            </div><!-- /content -->
+        </div><!-- /page -->
 
-        <div data-role="page" id="home">
-
+        <div data-role="page" id="home">          
             <div data-role="header" >
-                <h1>SuperByte 2012</h1>
+                <h1></h1> <!-- Name of event -->
                 <div id="logoWrap">
                 </div>
             </div><!-- /header -->
+            <div data-role="content"> 
+                <!--days or stages for 1 day event -->
+                <ul id ="homeMainList" data-role="listview" data-inset="true">
 
-            <div data-role="content">
-
-                <ul data-role="listview" data-inset="true">
-                    <li><a href="#MainStage">Main Stage</a></li><li><a href="#BigScreen">Big Screen</a></li><li><a href="#GamingArea">Gaming Area</a></li>                </ul>
-                <ul data-role="listview" data-inset="true">
-                    <li><a href="#artists">Artists</a></li>
                 </ul>
 
+                <ul data-role="listview" data-inset="true">
+                    <li><a href="#artists">Artists A-Z</a></li>
+                </ul>
             </div><!-- /content -->
-
             <div data-role="footer">
-                <h1>1st September 2012</h1>
+                <h1></h1> <!-- Dates of event -->
             </div><!-- /footer -->
-
         </div><!-- /page -->
+        
+        <div data-role="page" id="artists">          
+            <div data-role="header" >
+                <h1></h1> <!-- Name of event -->
+                <div id="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div data-role="content"> 
+                <!--days or stages for 1 day event -->
+                <ul id ="artistsMainList" data-role="listview" data-inset="true">
 
-
+                </ul>
+            </div><!-- /content -->
+            <div data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
     </body>
 </html>
