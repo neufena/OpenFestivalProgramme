@@ -11,6 +11,7 @@ CREATE TABLE tblAct (
 
 DROP TABLE IF EXISTS tblActStage;
 CREATE TABLE tblActStage (
+  id INTEGER PRIMARY KEY,
   day INTEGER,
   stageID INTEGER,
   actID INTEGER,
