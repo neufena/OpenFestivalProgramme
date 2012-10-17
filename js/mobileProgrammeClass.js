@@ -381,6 +381,10 @@ function mobileProgramme() {
 	
 	var buildDays = function() {
 		if (debug == true) console.log(Date.now() + ' buildDays called');
+		console.log(days)
+		for (var i=0; i < days; i++) {
+			sql = 
+		}
 		
 	}
 	
