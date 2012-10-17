@@ -14,15 +14,20 @@
         <script type="text/javascript" src="js/mobileProgrammeClass.js"></script>
         <script type="text/javascript">
             var prog = new mobileProgramme();
-            prog.initProgramme();
-            $(document).bind( "pageinit", function() { 
+            
+			//For testing set this to '#home' - get from URL/request in final
+			prog.setStartPage('#home');
+			
+			prog.initProgramme();
+			
+			$(document).bind( "pageinit", function() { 
                 $(document).bind( "pagebeforechange", function(e, data) {
                     if (debug == true) console.log(Date.now() + ' pagebeforechange event');
 					if ( typeof data.toPage === "string" ) {
 						url = (data.toPage.split('?'));
 						if (url[1] != undefined) {
-							prog.changePage(e, data, url);
-							e.preventDefault();
+							//prog.changePage(e, data, url);
+							//e.preventDefault();
 						}
 						
 					} 

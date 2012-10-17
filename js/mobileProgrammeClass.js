@@ -1,6 +1,8 @@
 function mobileProgramme() {
 	if (debug == true) console.log(Date.now() + ' mobileProgramme Class instantiated');
-	var updated = false;
+	var buildingDays = false;
+	var buildingStages = false;
+	var buildingActs = false;
 	var currentDay = 1;
 	var e;
 	var data;
@@ -11,7 +13,19 @@ function mobileProgramme() {
 	var days;
 	var venue;
 	var footerText;
+	var startPage;
 	
+	
+	
+	this.getStartPage = function() {
+		if (debug == true) console.log(Date.now() + ' getStartPage called');
+		return startPage;
+	}
+	
+	this.setStartPage = function(in_startPage) {
+		if (debug == true) console.log(Date.now() + ' setStartPage called');
+		startPage = in_startPage;
+	} 
 	
 	this.changePage = function (in_e, in_data,url)
 	{
@@ -233,13 +247,14 @@ function mobileProgramme() {
 						)
 				}
 				
-				gotoPage('#home');
-				try 
+				if (startPage == '#home') 
 				{
+					gotoPage('#home');
 					$('#homeMainList').listview('refresh');
-				}
-				catch (err)
-				{}	   
+					buildAllPages();
+				} else {
+					buildAllPages();
+				}  
 			},
 			function(error, statement){
 				//TODO Try to kill and rebuild whole DB
@@ -261,9 +276,14 @@ function mobileProgramme() {
 				'">' + dayText + '</a></li>'
 				)
 		}
-				
-		gotoPage('#home');
-		$('#homeMainList').listview('refresh');
+		if (startPage == '#home') 
+		{
+			gotoPage('#home');
+			$('#homeMainList').listview('refresh');
+			buildAllPages();
+		} else {
+			buildAllPages();
+		}
 	}
     
 	var buildArtists = function() {
@@ -359,29 +379,8 @@ function mobileProgramme() {
 			)
 	}
 	
-	var buildDay = function(results, dayID) {
-		currentDay = dayID;
-		results = results.rows;
-		if (debug == true) console.log(Date.now() + ' buildDay called');
-		$('#day div.header h1').html(name + ' - ' + results.name);
-		$('#day div.footer h1').html(footerText);
-		$('#dayMainList').html("");
-		numRows = results.length;
-		for (var i=0;i < numRows; i++) {
-			$('#dayMainList').append(
-				'<li><a href="#stage?id=' + results.item(i).stageID +
-				'">' + results.item(i).name + '</a></li>'
-				)
-		}
-		try 
-		{
-			$('#dayMainList').listview('refresh');
-		}
-		catch (err)
-		{}
-		
-		gotoPage('#day');
-		
+	var buildDays = function() {
+		if (debug == true) console.log(Date.now() + ' buildDays called');
 		
 	}
 	
@@ -395,6 +394,21 @@ function mobileProgramme() {
 		
 	}
 	
+	var buildAllPages = function() {
+		if (debug == true) console.log(Date.now() + " buildAllPages called");
+		buildingStages = true;
+		buildingActs = true;
+		if (days != 1) 	
+		{
+			buildingDays = true;
+			buildDays();
+		}
+		//buildStages();
+		//buildActs();
+		
+		
+	}
+	
 	
 	var gotoPage = function(page) 
 	{
@@ -403,11 +417,6 @@ function mobileProgramme() {
         
 	}
 		
-	var resolvePage = function(page) 
-	{
-		if (debug == true) console.log(Date.now() + " resolvePage called with " + page);
-		
-	}
     
 	var logError = function(msg) 
 	{
