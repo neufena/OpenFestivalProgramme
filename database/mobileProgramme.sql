@@ -36,6 +36,18 @@ CREATE TABLE tblStage (
   publishTimes INTEGER
 );
 
+
+DROP VIEW IF EXISTS tblDay;
+CREATE VIEW tblDay AS
+SELECT 
+day AS id,
+name,
+stageID
+FROM tblStage, tblActStage
+WHERE tblStage.id = tblActStage.stageID
+GROUP BY name,day
+ORDER BY displayOrder
+
 DROP TABLE IF EXISTS tblVersion;
 CREATE TABLE tblVersion (
   appVersion REAL PRIMARY KEY,

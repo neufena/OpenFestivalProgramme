@@ -1,6 +1,7 @@
 function mobileProgramme() {
-	if (debug == true) console.log('mobileProgramme Class instantiated');
+	if (debug == true) console.log(Date.now() + ' mobileProgramme Class instantiated');
 	var updated = false;
+	var currentDay = 1;
 	var e;
 	var data;
 	var local;
@@ -11,9 +12,10 @@ function mobileProgramme() {
 	var venue;
 	var footerText;
 	
+	
 	this.changePage = function (in_e, in_data,url)
 	{
-		if (debug == true) console.log('changePage called');
+		if (debug == true) console.log(Date.now() + ' changePage called');
 		e = in_e;
 		data = in_data;
 		page = url[0].split('#');
@@ -25,6 +27,12 @@ function mobileProgramme() {
 				switch (page[1]) {
 					case "stage":
 						buildStage(results);
+						break;
+					case "act":
+						buildAct(results);
+						break;
+					case "day":
+						buildDay(results,id[1]);
 						break;
 				
 					default:
@@ -43,7 +51,7 @@ function mobileProgramme() {
     
 	this.initProgramme = function ()
 	{
-		if (debug == true) console.log('startup called');
+		if (debug == true) console.log(Date.now() + ' startup called');
 		openDatabase();
 		checkDbVersion();
 	}
@@ -58,7 +66,7 @@ function mobileProgramme() {
 	}
 
 	var openDatabase = function() {
-		if (debug == true) console.log("openDatabase called");
+		if (debug == true) console.log(Date.now() + " openDatabase called");
 		html5sql.openDatabase(
 			databaseName,
 			displayName,
@@ -69,7 +77,7 @@ function mobileProgramme() {
 
 	var checkDbVersion = function()
 	{
-		if (debug == true) console.log("checkDbVersion called");
+		if (debug == true) console.log(Date.now() + " checkDbVersion called");
 		html5sql.process(
 			"SELECT * FROM tblVersion",
 			function(tx, results) {
@@ -83,7 +91,7 @@ function mobileProgramme() {
 
 	var compareVersions = function(tx, results)
 	{
-		if (debug == true) console.log("compareVersions called");
+		if (debug == true) console.log(Date.now() + " compareVersions called");
 		local = results.rows.item(0);
 		$.get(
 			ajaxHost + 'AJAX/requestHander.php?action=getVersion',
@@ -102,17 +110,19 @@ function mobileProgramme() {
 	}
 
 	var loadCreateSQL = function(error, statement){
-		if (debug == true) console.log("loadCreateSQL called");
+		if (debug == true) console.log(Date.now() + " loadCreateSQL called");
 		$.get('database/mobileProgramme.sql',
-			{ "_": $.now() },
-			function(sql) {
-				createDatabase(sql);
-			}
-			)
+		{
+			"_": $.now()
+		},
+		function(sql) {
+			createDatabase(sql);
+		}
+		)
 	}
 
 	var createDatabase = function(sql) {
-		if (debug == true) console.log("createDatabase called");
+		if (debug == true) console.log(Date.now() + " createDatabase called");
 		html5sql.process(sql,
 			function(){
 				checkDbVersion();
@@ -125,7 +135,7 @@ function mobileProgramme() {
 	}
 
 	var updateData = function() {
-		if (debug == true) console.log("updateData called");
+		if (debug == true) console.log(Date.now() + " updateData called");
 		$.get(ajaxHost + 'AJAX/requestHander.php?action=getData', function(rtn) {
 			var sql = [];
 			$.each(rtn, function(table,rows) {
@@ -156,7 +166,7 @@ function mobileProgramme() {
 	}
 	
 	var populateEvent = function () {
-		if (debug == true) console.log('populateEvent called');
+		if (debug == true) console.log(Date.now() + ' populateEvent called');
 		sql = 'SELECT name, eventDate, days, venue FROM tblevent';
 		html5sql.process(
 			sql,
@@ -178,7 +188,7 @@ function mobileProgramme() {
 	
     
 	var buildMainPages = function() {
-		if (debug == true) console.log('buildMainPages called');
+		if (debug == true) console.log(Date.now() + ' buildMainPages called');
 		
 		
 		if(days == 1) {
@@ -200,8 +210,8 @@ function mobileProgramme() {
 
 	
 	var buildHome = function() {
-		$('#home div.header h1').append(name);
-		$('#home div.footer h1').append(footerText);
+		$('#home div.header h1').html(name);
+		$('#home div.footer h1').html(footerText);
 		if(days == 1) {
 			buildHomeOneDay();
 		} else {
@@ -210,7 +220,7 @@ function mobileProgramme() {
 	}
 	
 	var buildHomeOneDay = function() {
-		if (debug == true) console.log('buildHomeOneDay called');
+		if (debug == true) console.log(Date.now() + ' buildHomeOneDay called');
 		sql = "SELECT id, name FROM tblStage ORDER BY displayOrder ASC";
 		html5sql.process(
 			sql,
@@ -240,13 +250,14 @@ function mobileProgramme() {
 	}
 	
 	var buildHomeMultiDay = function() {
-		if (debug == true) console.log('buildHomeMultiDay called');
+		if (debug == true) console.log(Date.now() + ' buildHomeMultiDay called');
 		var dayDate = new Date(date);
 		for (var i=0;i < days; i++) {
 			dayDate.setDate(date.getDate() + i );
 			dayText = $.datepicker.formatDate('d M - DD',dayDate);
+			dayID=i+1;
 			$('#homeMainList').append(
-				'<li><a href="#day?id=' + i +
+				'<li><a href="#day?id=' + dayID +
 				'">' + dayText + '</a></li>'
 				)
 		}
@@ -256,9 +267,9 @@ function mobileProgramme() {
 	}
     
 	var buildArtists = function() {
-		if (debug == true) console.log('buildArtists called');
-		$('#artists div.header h1').append(name + ' - Artists');
-		$('#artists div.footer h1').append(footerText);
+		if (debug == true) console.log(Date.now() + ' buildArtists called');
+		$('#artists div.header h1').html(name + ' - Artists');
+		$('#artists div.footer h1').html(footerText);
 		sql = "SELECT id, name, page FROM tblAct ORDER BY name ASC";
 		html5sql.process(
 			sql,
@@ -295,19 +306,19 @@ function mobileProgramme() {
 	
 	var buildStage = function(results) {
 		results = results.rows.item(0);
-		if (debug == true) console.log('buildStage called');
-		$('#stage div.header h1').append(name + ' - ' + results.name);
-		$('#stage div.footer h1').append(footerText);
+		if (debug == true) console.log(Date.now() + ' buildStage called');
+		$('#stage div.header h1').html(name + ' - ' + results.name);
+		$('#stage div.footer h1').html(footerText);
 		if (results.publishTimes == 1) {
 			sql = 'SELECT time, tblAct.id, name, page \n\
 					FROM tblActStage, tblAct WHERE tblAct.id = tblActStage.actID \n\
-					AND stageID=' + results.id + ' ORDER BY time DESC';
+					AND stageID=' + results.id + ' AND day = ' + currentDay + ' ORDER BY time DESC';
 		}
 		else 
 		{
 			sql = 'SELECT tblAct.id, name, page FROM \n\
 					tblActStage, tblAct WHERE tblAct.id = tblActStage.actID AND \n\
-					stageID=' + results.id + ' ORDER BY time DESC';
+					stageID=' + results.id + ' AND day = ' + currentDay + ' ORDER BY time DESC';
 		}
 		html5sql.process(
 			sql,
@@ -320,9 +331,14 @@ function mobileProgramme() {
 					} else {
 						id = results.rows.item(i).id;
 					}
+					if(results.rows.item(i).time == undefined) {
+						linkText = results.rows.item(i).name;
+					} else {
+						linkText = results.rows.item(i).time + ' - ' + results.rows.item(i).name;
+					}	
 					$('#stageMainList').append(
 						'<li><a href="#act?id=' + id +
-						'">' + results.rows.item(i).name + '</a></li>'
+						'">' + linkText + '</a></li>'
 						)
 				}
 				try 
@@ -343,22 +359,59 @@ function mobileProgramme() {
 			)
 	}
 	
+	var buildDay = function(results, dayID) {
+		currentDay = dayID;
+		results = results.rows;
+		if (debug == true) console.log(Date.now() + ' buildDay called');
+		$('#day div.header h1').html(name + ' - ' + results.name);
+		$('#day div.footer h1').html(footerText);
+		$('#dayMainList').html("");
+		numRows = results.length;
+		for (var i=0;i < numRows; i++) {
+			$('#dayMainList').append(
+				'<li><a href="#stage?id=' + results.item(i).stageID +
+				'">' + results.item(i).name + '</a></li>'
+				)
+		}
+		try 
+		{
+			$('#dayMainList').listview('refresh');
+		}
+		catch (err)
+		{}
+		
+		gotoPage('#day');
+		
+		
+	}
+	
+	var buildAct = function(results) {
+		results = results.rows.item(0);
+		if (debug == true) console.log(Date.now() + ' buildAct called');
+		console.log(results);	
+		$('#act div.header h1').html(name + ' - ' + results.name);
+		$('#act div.footer h1').html(footerText);
+		
+		
+	}
+	
+	
 	var gotoPage = function(page) 
 	{
-		if (debug == true) console.log("gotoPage called with " + page);
+		if (debug == true) console.log(Date.now() + " gotoPage called with " + page);
 		$.mobile.changePage(page);
         
 	}
 		
 	var resolvePage = function(page) 
 	{
-		if (debug == true) console.log("resolvePage called with " + page);
+		if (debug == true) console.log(Date.now() + " resolvePage called with " + page);
 		
 	}
     
 	var logError = function(msg) 
 	{
-		if (debug == true) console.log('ERROR:- '+msg);
+		if (debug == true) console.log(Date.now() + ' ERROR:- '+msg);
 		gotoPage('#error');
 	}
 
@@ -371,7 +424,7 @@ function mobileProgramme() {
 				gotoPage('noDataNoNetwork');
 				
 			} else {
-				if (debug == true) console.log('Not Online - carry on with local data only');
+				if (debug == true) console.log(Date.now() + ' Not Online - carry on with local data only');
 			//Todo build page from DB then resolve
 			}
             
