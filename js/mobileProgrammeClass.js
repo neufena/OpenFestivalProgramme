@@ -23,8 +23,13 @@ function mobileProgramme() {
 	}
 	
 	this.setStartPage = function(in_startPage) {
-		if (debug == true) console.log(Date.now() + ' setStartPage called');
+		if (debug == true) console.log(Date.now() + ' setStartPage called with '+ in_startPage);
 		startPage = in_startPage;
+	} 
+	
+	this.setCurrentDay = function(in_currentDay) {
+		if (debug == true) console.log(Date.now() + ' setCurrentDay called with ' + in_currentDay);
+		currentDay = in_currentDay;
 	} 
 	
 	this.changePage = function (in_e, in_data,url)
@@ -242,7 +247,7 @@ function mobileProgramme() {
 				numRows = results.rows.length;
 				for (var i=0;i < numRows; i++) {
 					$('#homeMainList').append(
-						'<li><a href="#stage?id=' + results.rows.item(i).id +
+						'<li><a href="#stage_' + results.rows.item(i).id +
 						'">' + results.rows.item(i).name + '</a></li>'
 						)
 				}
@@ -272,7 +277,7 @@ function mobileProgramme() {
 			dayText = $.datepicker.formatDate('d M - DD',dayDate);
 			dayID=i+1;
 			$('#homeMainList').append(
-				'<li><a href="#day?id=' + dayID +
+				'<li><a href="#day_' + dayID +
 				'">' + dayText + '</a></li>'
 				)
 		}
@@ -302,7 +307,7 @@ function mobileProgramme() {
 						id = results.rows.item(i).id;
 					}
 					$('#artistsMainList').append(
-						'<li><a href="#act?id=' + id +
+						'<li><a href="#act_' + id +
 						'">' + results.rows.item(i).name + '</a></li>'
 						)
 					
@@ -381,10 +386,160 @@ function mobileProgramme() {
 	
 	var buildDays = function() {
 		if (debug == true) console.log(Date.now() + ' buildDays called');
-		console.log(days)
+		
 		for (var i=0; i < days; i++) {
-			sql = 
+			dayID = i+1
+			sql = 'SELECT * FROM tblDay WHERE id = ' + dayID
+			html5sql.process(
+				sql,
+				function(tx, results){
+					results = results.rows;
+					dayMod = results.item(0).id -1;
+					thisDate = new Date(date);
+					thisDate.setDate(date.getDate() + dayMod );
+					thisDayText = $.datepicker.formatDate('DD',thisDate);
+					newDay = $('#day').clone();
+					newID = 'day_' + results.item(0).id;
+					newDay.attr('id',newID);
+					$('body').append(newDay)
+					$('#' + newID + ' .header h1').html(name + ' - ' + thisDayText);
+					$('#' + newID + ' .footer h1').html(footerText);
+					
+					list = $('#' + newID + ' .dayMainList');
+					list.html("");		
+							
+					for (var i = 0; i < results.length ; i++)
+					{
+						list.append(
+							'<li><a href="#stage_' + results.item(i).stageID + '_' + results.item(i).id +
+							'">' + results.item(i).name + '</a></li>'
+							);
+					}
+					
+					
+					
+				
+					if (results.item(0).id == days) 
+					{
+						buildingDays = false;	
+					}
+					if (buildingDays == false && buildingStages == false && buildingActs == false) {
+						console.log('all builds finished - add check page change code')
+					}
+
+				},
+				function(error, statement){
+					//TODO Try to kill and rebuild whole DB
+					logError('error selecting Acts from database')       
+				}			
+				)
 		}
+		
+	}
+	
+	var buildStages = function() {
+		if (debug == true) console.log(Date.now() + ' buildStages called');
+		
+		sql = '\
+			SELECT tblStage.name as stageName, publishTimes, actID, tblAct.name, time, page, stageID, day FROM tblStage, tblActStage, tblAct \
+			WHERE tblStage.id = tblActStage.stageID \
+			AND tblActstage.actID = tblAct.id \
+			ORDER BY day ASC, stageID ASC, time DESC';
+		html5sql.process(
+			sql,
+			function(tx, results){
+				results = results.rows;
+				stageID = null;
+				stageDay = null;
+
+				for (var i=0; i < results.length; i++) {
+					if (stageID != results.item(i).stageID || stageDay != results.item(i).day) 
+					{
+						stageName = results.item(i).stageName;
+						stagePublishTimes = results.item(i).publishTimes;
+						stageID = results.item(i).stageID;
+						stageDay = results.item(i).day;
+						dayMod = stageDay -1;
+						thisDate = new Date(date);
+						thisDate.setDate(date.getDate() + dayMod );
+						thisStageText = stageName + ' - ' + $.datepicker.formatDate('DD',thisDate);
+						newStage = $('#stage').clone();
+						newID = 'stage_' + stageID + '_' + stageDay;
+						newStage.attr('id',newID);
+						$('body').append(newStage)
+						$('#' + newID + ' .header h1').html(name + ': ' + thisStageText);
+						$('#' + newID + ' .footer h1').html(footerText);
+						list = $('#' + newID + ' .stageMainList');
+						list.html("");
+					}
+					if( results.item(i).publishTimes == 1 ) {
+						actText = results.item(i).time + ': ' + results.item(i).name;
+					}
+					else
+					{
+						actText = results.item(i).name
+					}
+					if ( results.item(i).page == '' ) {
+						actID = results.item(i).actID;
+					}
+					else 
+						{
+							actID = results.item(i).page;
+						}
+					list.append(
+						'<li><a href="#act_' + actID +
+						'">' + actText + '</a></li>'
+						);
+					
+					
+				}
+						
+				
+				buildingStages = false;
+				if (buildingDays == false && buildingStages == false && buildingActs == false) {
+					console.log('all builds finished - add check page change code')
+				}
+
+			},
+			function(error, statement){
+				//TODO Try to kill and rebuild whole DB
+				logError('error selecting Acts from database')       
+			}			
+			)
+		
+	}
+	
+	var buildActs = function() {
+		if (debug == true) console.log(Date.now() + ' buildActs called');
+		//Note only build for where page is null
+		sql = 'SELECT * FROM tblAct WHERE page = ""'
+		html5sql.process(
+			sql,
+			function(tx, results){
+				results = results.rows;
+				for ( i=0; i < results.length ; i++) {
+					console.log(results.item(i));
+					newAct = $('#act').clone();
+					newID = 'act_' + results.item(i).id;
+					newAct.attr('id',newID);
+					$('body').append(newAct)
+					$('#' + newID + ' .header h1').html(name + ' - ' + results.item(i).name);
+					$('#' + newID + ' .footer h1').html(footerText);
+					
+					//Build all Act details here
+					//use main img as Youtube img until live data has been loaded
+				}
+				buildingActs = false;
+				if (buildingDays == false && buildingStages == false && buildingActs == false) {
+					console.log('all builds finished - add check page change code')
+				}
+
+			},
+			function(error, statement){
+				//TODO Try to kill and rebuild whole DB
+				logError('error selecting Acts from database')       
+			}			
+			)
 		
 	}
 	
@@ -407,8 +562,8 @@ function mobileProgramme() {
 			buildingDays = true;
 			buildDays();
 		}
-		//buildStages();
-		//buildActs();
+		buildStages();
+		buildActs();
 		
 		
 	}

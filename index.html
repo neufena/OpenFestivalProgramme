@@ -24,12 +24,11 @@
                 $(document).bind( "pagebeforechange", function(e, data) {
                     if (debug == true) console.log(Date.now() + ' pagebeforechange event');
 					if ( typeof data.toPage === "string" ) {
-						url = (data.toPage.split('?'));
-						if (url[1] != undefined) {
-							//prog.changePage(e, data, url);
-							//e.preventDefault();
+						url = (data.toPage.split('#'));
+						basePage = url[1].split('_');
+						if(basePage[0] == "day") {
+							prog.setCurrentDay(basePage[1])
 						}
-						
 					} 
                 });
                 
@@ -52,7 +51,7 @@
             </div><!-- /header -->
             <div data-role="content"> 
                 <!--days or stages for 1 day event -->
-                <ul id ="homeMainList" data-role="listview" data-inset="true">
+                <ul id="homeMainList" data-role="listview" data-inset="true">
 
                 </ul>
 
@@ -73,7 +72,7 @@
             </div><!-- /header -->
             <div data-role="content"> 
                 <!--days or stages for 1 day event -->
-                <ul id ="artistsMainList" data-role="listview" data-inset="true">
+                <ul id="artistsMainList" data-role="listview" data-inset="true">
 
                 </ul>
             </div><!-- /content -->
@@ -90,7 +89,7 @@
             </div><!-- /header -->
             <div data-role="content"> 
                 <!--stages  -->
-                <ul id ="dayMainList" data-role="listview" data-inset="true">
+                <ul class="dayMainList" data-role="listview" data-inset="true">
 
                 </ul>
             </div><!-- /content -->
@@ -105,7 +104,7 @@
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
-            <div id ="actContent" data-role="content"> 
+            <div class="actContent" data-role="content"> 
                 
             </div><!-- /content -->
             <div class="footer" data-role="footer">
@@ -119,9 +118,9 @@
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
-            <div id ="stageContent" data-role="content"> 
+            <div class="stageContent" data-role="content"> 
                 <!--days or stages for 1 day event -->
-                <ul id ="stageMainList" data-role="listview" data-inset="true">
+                <ul class ="stageMainList" data-role="listview" data-inset="true">
 
                 </ul>
             </div><!-- /content -->
