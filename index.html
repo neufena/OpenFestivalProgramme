@@ -3,11 +3,11 @@
 <html> 
     <head> 
         <title></title> 
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.min.css" />
         <link rel="stylesheet" href="css/style.css" />
         <script src="js/jquery-1.7.2.min.js"></script>
-		<script src="js/jquery-ui-1.9.0.custom.min.js"></script>
+        <script src="js/jquery-ui-1.9.0.custom.min.js"></script>
         <script src="js/jquery.mobile-1.2.0.min.js"></script>
         <script type="text/javascript" src="js/html5sql.js"></script>
         <script type="text/javascript" src="js/config.js"></script>
@@ -15,21 +15,21 @@
         <script type="text/javascript">
             var prog = new mobileProgramme();
             
-			//For testing set this to '#home' - get from URL/request in final
-			prog.setStartPage('#home');
+            //For testing set this to '#home' - get from URL/request in final
+            prog.setStartPage('#home');
 			
-			prog.initProgramme();
+            prog.initProgramme();
 			
-			$(document).bind( "pageinit", function() { 
+            $(document).bind( "pageinit", function() {
                 $(document).bind( "pagebeforechange", function(e, data) {
                     if (debug == true) console.log(Date.now() + ' pagebeforechange event');
-					if ( typeof data.toPage === "string" ) {
-						url = (data.toPage.split('#'));
-						basePage = url[1].split('_');
-						if(basePage[0] == "day") {
-							prog.setCurrentDay(basePage[1])
-						}
-					} 
+                    if ( typeof data.toPage === "string" ) {
+                        url = (data.toPage.split('#'));
+                        basePage = url[1].split('_');
+                        if(basePage[0] == "day") {
+                            prog.setCurrentDay(basePage[1])
+                        }
+                    }
                 });
                 
             });
@@ -63,7 +63,7 @@
                 <h1></h1> <!-- Dates of event -->
             </div><!-- /footer -->
         </div><!-- /page -->
-        
+
         <div data-role="page" id="artists" data-add-back-btn="true">          
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
@@ -80,8 +80,8 @@
                 <h1></h1> <!-- Dates of event -->
             </div><!-- /footer -->
         </div><!-- /page -->
-		
-		<div data-role="page" id="day" data-add-back-btn="true">          
+
+        <div data-role="page" id="day" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
                 <div class="logoWrap">
@@ -97,22 +97,22 @@
                 <h1></h1> <!-- Dates of event -->
             </div><!-- /footer -->
         </div><!-- /page -->
-		
-		<div data-role="page" id="act" data-add-back-btn="true">          
+
+        <div data-role="page" id="act" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
             <div class="actContent" data-role="content"> 
-                
+
             </div><!-- /content -->
             <div class="footer" data-role="footer">
                 <h1></h1> <!-- Dates of event -->
             </div><!-- /footer -->
         </div><!-- /page -->
-		
-		<div data-role="page" id="stage" data-add-back-btn="true">          
+
+        <div data-role="page" id="stage" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
                 <div class="logoWrap">
@@ -128,8 +128,8 @@
                 <h1></h1> <!-- Dates of event -->
             </div><!-- /footer -->
         </div><!-- /page -->
-		
-		<div data-role="page" id="error" data-add-back-btn="true">          
+
+        <div data-role="page" id="error" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1>Error</h1> <!-- Name of event -->
                 <div class="logoWrap">
@@ -137,7 +137,7 @@
             </div><!-- /header -->
             <div id ="errorContent" data-role="content"> 
                 <p><strong>An Error Has Occurred</strong></p>
-				
+
             </div><!-- /content -->
             <div class="footer" data-role="footer">
                 <h1></h1> <!-- Dates of event -->

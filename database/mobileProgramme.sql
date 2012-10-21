@@ -4,7 +4,8 @@ CREATE TABLE tblAct (
   name TEXT,
   description TEXT,
   image BLOB,
-  video BLOB,
+  video TEXT,
+  videothumb BLOB,
   website TEXT,
   page TEXT
   );
@@ -29,12 +30,12 @@ CREATE TABLE tblEvent (
 );
 
 DROP TABLE IF EXISTS tblStage;
-CREATE TABLE tblStage (
-  id INTEGER PRIMARY KEY,
-  name TEXT,
-  displayOrder INTEGER,
-  publishTimes INTEGER
-);
+	CREATE TABLE tblStage (
+	  id INTEGER PRIMARY KEY,
+	  name TEXT,
+	  displayOrder INTEGER,
+	  publishTimes INTEGER
+	);
 
 
 DROP VIEW IF EXISTS tblDay;
@@ -46,7 +47,7 @@ stageID
 FROM tblStage, tblActStage
 WHERE tblStage.id = tblActStage.stageID
 GROUP BY name,day
-ORDER BY displayOrder
+ORDER BY displayOrder;
 
 DROP TABLE IF EXISTS tblVersion;
 CREATE TABLE tblVersion (

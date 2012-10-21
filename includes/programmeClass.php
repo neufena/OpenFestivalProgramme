@@ -43,6 +43,12 @@ class programme {
         return $result;
     }
 
+    public function getYouTubeIds() {
+        $sql = 'SELECT video FROM tblAct WHERE video IS NOT NULL';
+        $result = $this->db->returnResult($sql);
+        return $result;
+    }
+
     public function getAllData() {
         $acts = $this->getTable('tblAct');
         foreach ($acts as $k => $act) {
@@ -51,9 +57,8 @@ class programme {
                 $acts[$k]['image'] = base64_encode($img);
             }
             if ($act['video'] != '') {
-                //$youtube = file_get_contents('http://img.youtube.com/vi/'.$act['video'].'/0.jpg');
-                //$acts[$k]['video'] = base64_encode($youtube);
-                //$acts[$k]['video'] = '';
+                $youtube = file_get_contents('http://img.youtube.com/vi/'.$act['video'].'/0.jpg');
+                $acts[$k]['videothumb'] = base64_encode($youtube);
             }
         }
         $allData = array(

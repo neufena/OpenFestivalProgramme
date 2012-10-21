@@ -70,7 +70,7 @@ function mobileProgramme() {
     
 	this.initProgramme = function ()
 	{
-		if (debug == true) console.log(Date.now() + ' startup called');
+		if (debug == true) console.log(Date.now() + ' initProgramme called');
 		openDatabase();
 		checkDbVersion();
 	}
@@ -248,7 +248,7 @@ function mobileProgramme() {
 				for (var i=0;i < numRows; i++) {
 					$('#homeMainList').append(
 						'<li><a href="#stage_' + results.rows.item(i).id +
-						'">' + results.rows.item(i).name + '</a></li>'
+						'_1">' + results.rows.item(i).name + '</a></li>'
 						)
 				}
 				
@@ -518,16 +518,25 @@ function mobileProgramme() {
 			function(tx, results){
 				results = results.rows;
 				for ( i=0; i < results.length ; i++) {
-					console.log(results.item(i));
 					newAct = $('#act').clone();
 					newID = 'act_' + results.item(i).id;
 					newAct.attr('id',newID);
 					$('body').append(newAct)
 					$('#' + newID + ' .header h1').html(name + ' - ' + results.item(i).name);
 					$('#' + newID + ' .footer h1').html(footerText);
-					
-					//Build all Act details here
-					//use main img as Youtube img until live data has been loaded
+					actContent = $('#' + newID + ' .actContent');
+					actContent.html('');
+					actContent.append('<div class="picture"><img src="" alt="' + results.item(i).name + '" /></div>');
+					actContent.append('<div class="description"><p>' + results.item(i).description + '</p>');
+					if (results.item(i).website != '') {
+						actContent.append('<p><a href="' + results.item(i).website + '">Website</a></p>');
+					}
+					actContent.append('</div>');
+					if (results.item(i).video != '')
+						{
+							actContent.append('<div class="video"><a href="http://m.youtube.com/watch?v="' + results.item(i).video + 
+								'><img src="" alt="' + results.item(i).name + ' video" /></a></div>');
+						}
 				}
 				buildingActs = false;
 				if (buildingDays == false && buildingStages == false && buildingActs == false) {
@@ -540,16 +549,6 @@ function mobileProgramme() {
 				logError('error selecting Acts from database')       
 			}			
 			)
-		
-	}
-	
-	var buildAct = function(results) {
-		results = results.rows.item(0);
-		if (debug == true) console.log(Date.now() + ' buildAct called');
-		console.log(results);	
-		$('#act div.header h1').html(name + ' - ' + results.name);
-		$('#act div.footer h1').html(footerText);
-		
 		
 	}
 	
