@@ -16,7 +16,13 @@
             var prog = new mobileProgramme();
             
             //For testing set this to '#home' - get from URL/request in final
-            prog.setStartPage('#home');
+            url = (window.location.hash);
+            if(url == '') {
+                prog.setStartPage('#home');
+            }
+            else {
+                prog.setStartPage(url);
+            }
 			
             prog.initProgramme();
 			
@@ -55,7 +61,7 @@
 
                 </ul>
 
-                <ul data-role="listview" data-inset="true">
+                <ul id="homeStaticList" data-role="listview" data-inset="true">
                     <li><a href="#artists">Artists A-Z</a></li>
                 </ul>
             </div><!-- /content -->
@@ -67,6 +73,7 @@
         <div data-role="page" id="artists" data-add-back-btn="true">          
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
@@ -84,6 +91,7 @@
         <div data-role="page" id="day" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
@@ -101,6 +109,7 @@
         <div data-role="page" id="act" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
@@ -115,6 +124,7 @@
         <div data-role="page" id="stage" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
@@ -132,11 +142,43 @@
         <div data-role="page" id="error" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1>Error</h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
             <div id ="errorContent" data-role="content"> 
                 <p><strong>An Error Has Occurred</strong></p>
+
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+        <div data-role="page" id="upgrade" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1>Error</h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div id ="errorContent" data-role="content">
+                <p><strong>You need to upgrade</strong></p>
+
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="noDataNoNetwork" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1>Error</h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div id ="errorContent" data-role="content">
+                <p><strong>No Data No Network</strong></p>
 
             </div><!-- /content -->
             <div class="footer" data-role="footer">

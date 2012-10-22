@@ -57,7 +57,7 @@ class programme {
                 $acts[$k]['image'] = base64_encode($img);
             }
             if ($act['video'] != '') {
-                $youtube = file_get_contents('../images/youtube' . $act['video'] . '.jpg');
+                $youtube = file_get_contents('../images/youtube/' . $act['video'] . '.jpg');
                 $acts[$k]['videothumb'] = base64_encode($youtube);
             }
         }
