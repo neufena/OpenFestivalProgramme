@@ -73,7 +73,11 @@ function mobileProgramme() {
             estimatedSize
             );
         html5sql.process(
-            "DROP TABLE IF EXISTS tblVersion",
+            "DROP TABLE IF EXISTS tblVersion; \n\
+            DROP TABLE IF EXISTS tblAct; \n\
+            DROP TABLE IF EXISTS tblActStage;\n\
+            DROP TABLE IF EXISTS tblEvent;\n\
+            DROP TABLE IF EXISTS tblStage;",
             function() {
                 if(tryRebuild == true) 
                 {
