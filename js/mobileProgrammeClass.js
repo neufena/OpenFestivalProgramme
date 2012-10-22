@@ -128,8 +128,7 @@ function mobileProgramme() {
                 }
             },
             "json"
-            )
-
+            );
     }
 
     var loadCreateSQL = function(error, statement){
