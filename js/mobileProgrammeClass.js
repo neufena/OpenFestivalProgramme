@@ -17,11 +17,6 @@ function mobileProgramme() {
 	
 	
 	
-    this.getStartPage = function() {
-        if (debug == true) console.log(Date.now() + ' getStartPage called');
-        return startPage;
-    }
-	
     this.setStartPage = function(in_startPage) {
         if (debug == true) console.log(Date.now() + ' setStartPage called with '+ in_startPage);
         startPage = in_startPage;
@@ -590,7 +585,7 @@ function mobileProgramme() {
     
     var logError = function(msg)
     {
-        if (debug == true) console.log(Date.now() + ' ERROR:- '+msg);
+        console.log(Date.now() + ' ERROR:- '+msg);
         gotoPage('#error');
     }
 
@@ -603,7 +598,9 @@ function mobileProgramme() {
 				
             } else {
                 if (debug == true) console.log(Date.now() + ' Not Online - carry on with local data only');
-            //Todo build page from DB then resolve
+                updated = true;
+                populateEvent();
+                
             }
             
         }
