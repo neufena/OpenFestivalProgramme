@@ -15,7 +15,6 @@
         <script type="text/javascript">
             var prog = new mobileProgramme();
             
-            //For testing set this to '#home' - get from URL/request in final
             url = (window.location.hash);
             if(url == '') {
                 prog.setStartPage('#home');
@@ -45,7 +44,9 @@
     <body>
         <div data-role="page" id="splash">
             <div data-role="content"> 
-                <h1>This will contain a splash screen with 'loading' messages</h1>
+                <div id="loadingLogo"></div>
+                <img src="images/ajax-loader.gif" alt="loading..." id="ajax-logo" />
+                <h3>Updating Programme Data, won't be long...</h3>
             </div><!-- /content -->
         </div><!-- /page -->
 

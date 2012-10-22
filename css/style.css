@@ -40,7 +40,7 @@ div.video img{
         width:400px;
         float:left;
     }
-    
+
     div.description {
         margin-left:410px;
     }
@@ -54,4 +54,128 @@ div.video img{
     }
 }
 
+
+/* Splash Screens ----------- */
+
+#splash {
+    height:100%;
+}
+
+#splash div{
+    width:100%;
+    height:100%;
+    background-color: white;
+}
+
+#splash #loadingLogo{
+    background-image: url('../images/splashLogos/logo_200.jpg');
+    width:200px;
+    height:21px;
+    margin: 0px auto;
+    margin-bottom: 50px;
+
+}
+
+#splash #ajax-logo {
+    display:block;
+    width:100px;
+    margin: 0px auto;
+    margin-bottom: 50px;
+}
+
+#splash h3{
+    text-align: center;
+    font-size: smaller;
+}
+
+#splash {
+        height:100%;
+    }
+
+@media screen and (min-width: 400px) {
+    #splash div{
+        width:100%;
+        height:100%;
+        background-color: white;
+    }
+
+    #splash #loadingLogo{
+        background-image: url('../images/splashLogos/logo_300.jpg');
+        width:300px;
+        height:31px;
+        margin: 0px auto;
+        margin-bottom: 50px;
+
+    }
+
+    #splash #ajax-logo {
+        display:block;
+        width:100px;
+        margin: 0px auto;
+        margin-bottom: 50px;
+    }
+
+    #splash h3{
+        text-align: center;
+        font-size: smaller;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #splash div{
+        width:100%;
+        height:100%;
+        background-color: white;
+    }
+
+    #splash #loadingLogo{
+        background-image: url('../images/splashLogos/logo_500.jpg');
+        width:500px;
+        height:52px;
+        margin: 0px auto;
+        margin-bottom: 50px;
+
+    }
+
+    #splash #ajax-logo {
+        display:block;
+        width:100px;
+        margin: 0px auto;
+        margin-bottom: 50px;
+    }
+
+    #splash h3{
+        text-align: center;
+        font-size: medium;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    #splash div{
+        width:100%;
+        height:100%;
+        background-color: white;
+    }
+
+    #splash #loadingLogo{
+        background-image: url('../images/splashLogos/logo_600.jpg');
+        width:600px;
+        height:62px;
+        margin: 0px auto;
+        margin-bottom: 50px;
+
+    }
+
+    #splash #ajax-logo {
+        display:block;
+        width:100px;
+        margin: 0px auto;
+        margin-bottom: 50px;
+    }
+
+    #splash h3{
+        text-align: center;
+        font-size: medium;
+    }
+}
 
