@@ -4,19 +4,16 @@ function mobileProgramme() {
     var buildingStages = false;
     var buildingActs = false;
     var currentDay = 1;
-    var e;
-    var data;
+    var tryRebuild = false;
     var local;
     var page;
     var name;
     var date;
     var days;
-    var venue;
     var footerText;
     var startPage;
-	
-	
-	
+
+		
     this.setStartPage = function(in_startPage) {
         if (debug == true) console.log(Date.now() + ' setStartPage called with '+ in_startPage);
         startPage = in_startPage;
@@ -76,7 +73,15 @@ function mobileProgramme() {
             displayName,
             estimatedSize
             );
-        html5sql.process("DROP TABLE IF EXISTS tblVersion");
+        html5sql.process(
+            "DROP TABLE IF EXISTS tblVersion",
+            function() {
+                if(tryRebuild == true) 
+                {
+                    initProgramme();
+                }
+            }
+            );
     }
 
     var openDatabase = function() {
