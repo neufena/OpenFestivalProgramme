@@ -12,8 +12,8 @@ class databaseTest extends PHPUnit_Extensions_Database_TestCase {
      * @var database
      */
     protected $object;
-    static private $pdo = null;
-    private $conn = null;
+    static private $pdo = NULL;
+    private $conn = NULL;
 
 
     protected function setUp() {
@@ -26,9 +26,15 @@ class databaseTest extends PHPUnit_Extensions_Database_TestCase {
     
     public function getConnection()
     {
-        if ($this->conn === null) {
-            if (self::$pdo == null) {
-                self::$pdo = new PDO($GLOBALS['driver'], $GLOBALS['host'], $GLOBALS['database'], $GLOBALS['user'], $GLOBALS['password']);
+        if ($this->conn === NULL) {
+            if (self::$pdo == NULL) {
+                self::$pdo = new PDO(
+                        $GLOBALS['driver'],
+                        $GLOBALS['host'],
+                        $GLOBALS['database'],
+                        $GLOBALS['user'],
+                        $GLOBALS['password']
+                        );
             }
             $this->conn = $this->createDefaultDBConnection(self::$pdo, $GLOBALS['database']);
         }
