@@ -10,7 +10,7 @@
 
 class database {
 
-    private $db;
+    private $dbh;
     private $driver;
     private $host;
     private $database;
@@ -23,13 +23,13 @@ class database {
         $this->database = $database;
         $this->username = $username;
         $this->password = $password;
-            $this->db = new PDO($this->driver . ':host=' . $this->host .
+            $this->dbh = new PDO($this->driver . ':host=' . $this->host .
                 ';dbname=' . $this->database, $this->username, $this->password);
-        return true;
+        return TRUE;
     }
 
     public function execSQL($sql, $args=array()) {
-        $stmt = $this->db->prepare($sql);
+        $stmt = $this->dbh->prepare($sql);
         if (isset($args[0]) && is_array($args[0])) {
             foreach ($args as $arg) {
                 $stmt->execute($arg);
@@ -37,11 +37,11 @@ class database {
         } else {
             $stmt->execute($args);
         }
-        return true;
+        return TRUE;
     }
 
     public function returnResult($sql, $args=array()) {
-        $stmt = $this->db->prepare($sql);
+        $stmt = $this->dbh->prepare($sql);
         if (isset($args[0]) && is_array($args[0])) {
             $result = array();
             foreach ($args as $arg) {
@@ -55,7 +55,7 @@ class database {
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
-        return true;
+        return TRUE;
     }
     
     

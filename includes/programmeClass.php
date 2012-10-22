@@ -9,26 +9,26 @@
 
 class programme {
 
-    private $db;
+    private $dbh;
 
-    function __construct($db) {
+    function __construct($dbh) {
         global $driver;
         global $host;
         global $database;
         global $username;
         global $password;
-        $this->db = $db;
+        $this->dbh = $dbh;
     }
 
     public function getDBVersion() {
         $sql = 'SELECT dbVersion FROM tblVersion';
-        $result = $this->db->returnResult($sql);
+        $result = $this->dbh->returnResult($sql);
         return $result[0]['dbVersion'];
     }
 
     public function getAppVersion() {
         $sql = 'SELECT appVersion FROM tblVersion';
-        $result = $this->db->returnResult($sql);
+        $result = $this->dbh->returnResult($sql);
         return $result[0]['appVersion'];
     }
 
@@ -39,13 +39,13 @@ class programme {
 
     private function getTable($table) {
         $sql = 'SELECT * FROM ' . $table;
-        $result = $this->db->returnResult($sql);
+        $result = $this->dbh->returnResult($sql);
         return $result;
     }
 
     public function getYouTubeIds() {
         $sql = 'SELECT video FROM tblAct WHERE video IS NOT NULL';
-        $result = $this->db->returnResult($sql);
+        $result = $this->dbh->returnResult($sql);
         return $result;
     }
 
@@ -76,7 +76,7 @@ class programme {
 
 }
 
-function escapeSQLite(&$item, $key) {
+function escapeSQLite(&$item) {
     $item = str_replace("'", "''", $item);
 }
 
