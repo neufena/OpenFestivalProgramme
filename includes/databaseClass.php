@@ -7,8 +7,8 @@
  *
  * @author neufena
  */
-
-class database {
+class database
+{
 
     private $dbh;
     private $driver;
@@ -17,18 +17,20 @@ class database {
     private $username;
     private $password;
 
-    function __construct($driver, $host, $database, $username, $password) {
+    function __construct($driver, $host, $database, $username, $password)
+    {
         $this->driver = $driver;
         $this->host = $host;
         $this->database = $database;
         $this->username = $username;
         $this->password = $password;
-            $this->dbh = new PDO($this->driver . ':host=' . $this->host .
-                ';dbname=' . $this->database, $this->username, $this->password);
+        $this->dbh = new PDO($this->driver . ':host=' . $this->host .
+                        ';dbname=' . $this->database, $this->username, $this->password);
         return TRUE;
     }
 
-    public function execSQL($sql, $args=array()) {
+    public function execSQL($sql, $args = array())
+    {
         $stmt = $this->dbh->prepare($sql);
         if (isset($args[0]) && is_array($args[0])) {
             foreach ($args as $arg) {
@@ -40,13 +42,14 @@ class database {
         return TRUE;
     }
 
-    public function returnResult($sql, $args=array()) {
+    public function returnResult($sql, $args = array())
+    {
         $stmt = $this->dbh->prepare($sql);
         if (isset($args[0]) && is_array($args[0])) {
             $result = array();
             foreach ($args as $arg) {
                 $stmt->execute($arg);
-                
+
                 $result[] = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
             return $result;
@@ -57,8 +60,6 @@ class database {
         }
         return TRUE;
     }
-    
-    
 
 }
 

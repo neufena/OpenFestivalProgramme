@@ -6,50 +6,46 @@
  * @author neufena
  * @todo Handle database errors correctly
  */
-
-class programme {
+class programme
+{
 
     private $dbh;
 
-    function __construct($dbh) {
-        global $driver;
-        global $host;
-        global $database;
-        global $username;
-        global $password;
+    function __construct($dbh)
+    {
         $this->dbh = $dbh;
     }
 
-    public function getDBVersion() {
+    public function getDBVersion()
+    {
         $sql = 'SELECT dbVersion FROM tblVersion';
         $result = $this->dbh->returnResult($sql);
         return $result[0]['dbVersion'];
     }
 
-    public function getAppVersion() {
+    public function getAppVersion()
+    {
         $sql = 'SELECT appVersion FROM tblVersion';
         $result = $this->dbh->returnResult($sql);
         return $result[0]['appVersion'];
     }
 
-    private function img2blob($image) {
-        $imageData = file_get_contents($image);
-        return json_encode($imageData);
-    }
-
-    private function getTable($table) {
+    private function getTable($table)
+    {
         $sql = 'SELECT * FROM ' . $table;
         $result = $this->dbh->returnResult($sql);
         return $result;
     }
 
-    public function getYouTubeIds() {
+    public function getYouTubeIds()
+    {
         $sql = 'SELECT video FROM tblAct WHERE video IS NOT NULL';
         $result = $this->dbh->returnResult($sql);
         return $result;
     }
 
-    public function getAllData() {
+    public function getAllData()
+    {
         $acts = $this->getTable('tblAct');
         foreach ($acts as $k => $act) {
             if ($act['image'] != '') {
@@ -70,13 +66,14 @@ class programme {
         );
 
         array_walk_recursive($allData, 'escapeSQLite');
-        
+
         return $allData;
     }
 
 }
 
-function escapeSQLite(&$item) {
+function escapeSQLite(&$item)
+{
     $item = str_replace("'", "''", $item);
 }
 

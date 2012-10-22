@@ -13,17 +13,17 @@ function mobileProgramme() {
     var footerText;
     var startPage;
 
-		
+
     this.setStartPage = function(in_startPage) {
         if (debug == true) console.log(Date.now() + ' setStartPage called with '+ in_startPage);
         startPage = in_startPage;
     }
-	
+
     this.setCurrentDay = function(in_currentDay) {
         if (debug == true) console.log(Date.now() + ' setCurrentDay called with ' + in_currentDay);
         currentDay = in_currentDay;
     }
-	
+
     this.changePage = function (in_e, in_data,url)
     {
         if (debug == true) console.log(Date.now() + ' changePage called');
@@ -45,11 +45,10 @@ function mobileProgramme() {
                     case "day":
                         buildDay(results,id[1]);
                         break;
-				
                     default:
                         logError('incorrect page requested')
                         break;
-					
+
                 }
             },
             function (error, statement) {
@@ -115,7 +114,7 @@ function mobileProgramme() {
         $.get(
             ajaxHost + 'AJAX/requestHander.php?action=getVersion',
             function(rtn) {
-                if (local.appVersion != rtn.appVersion) {
+                if (local.appVersion != rtn.appVersion && local.appVersion != 0) {
                     startPage = '#upgrade'
                     updated = true;
                     populateEvent();
@@ -186,7 +185,7 @@ function mobileProgramme() {
                 )
         });
     }
-	
+
     var populateEvent = function () {
         if (debug == true) console.log(Date.now() + ' populateEvent called');
         sql = 'SELECT name, eventDate, days, venue FROM tblevent';
@@ -205,14 +204,12 @@ function mobileProgramme() {
                     
             }
             )
-		
+
     }
-	
+
     
     var buildMainPages = function() {
         if (debug == true) console.log(Date.now() + ' buildMainPages called');
-		
-		
         if(days == 1) {
             footerText = $.datepicker.formatDate('dd MM yy',date);
         }
@@ -230,7 +227,7 @@ function mobileProgramme() {
         buildHome();
     }
 
-	
+
     var buildHome = function() {
         $('#home div.header h1').html(name);
         $('#home div.footer h1').html(footerText);
@@ -240,7 +237,7 @@ function mobileProgramme() {
             buildHomeMultiDay();
         }
     }
-	
+
     var buildHomeOneDay = function() {
         if (debug == true) console.log(Date.now() + ' buildHomeOneDay called');
         sql = "SELECT id, name FROM tblStage ORDER BY displayOrder ASC";
@@ -254,7 +251,6 @@ function mobileProgramme() {
                         '_1">' + results.rows.item(i).name + '</a></li>'
                         )
                 }
-				
                 if (startPage == '#home')
                 {
                     gotoPage('#home');
@@ -271,7 +267,7 @@ function mobileProgramme() {
             }
             )
     }
-	
+
     var buildHomeMultiDay = function() {
         if (debug == true) console.log(Date.now() + ' buildHomeMultiDay called');
         var dayDate = new Date(date);
@@ -314,7 +310,7 @@ function mobileProgramme() {
                         '<li><a href="#act_' + id +
                         '">' + results.rows.item(i).name + '</a></li>'
                         )
-					
+
                 }
                 try
                 {
@@ -322,7 +318,6 @@ function mobileProgramme() {
                 }
                 catch (err)
                 {}
-				
             },
             function(error, statement){
                 //TODO Try to kill and rebuild whole DB
@@ -332,7 +327,6 @@ function mobileProgramme() {
             )
         
     }
-	
     var buildStage = function(results) {
         results = results.rows.item(0);
         if (debug == true) console.log(Date.now() + ' buildStage called');
@@ -376,10 +370,7 @@ function mobileProgramme() {
                 }
                 catch (err)
                 {}
-				
                 gotoPage('#stage');
-				
-				
             },
             function(error, statement){
                 //TODO Try to kill and rebuild whole DB
@@ -387,10 +378,8 @@ function mobileProgramme() {
             }
             )
     }
-	
     var buildDays = function() {
         if (debug == true) console.log(Date.now() + ' buildDays called');
-		
         for (var i=0; i < days; i++) {
             dayID = i+1
             sql = 'SELECT * FROM tblDay WHERE id = ' + dayID
@@ -408,10 +397,8 @@ function mobileProgramme() {
                     $('body').append(newDay)
                     $('#' + newID + ' .header h1').html(name + ' - ' + thisDayText);
                     $('#' + newID + ' .footer h1').html(footerText);
-					
                     list = $('#' + newID + ' .dayMainList');
                     list.html("");
-							
                     for (var i = 0; i < results.length ; i++)
                     {
                         list.append(
@@ -419,10 +406,6 @@ function mobileProgramme() {
                             '">' + results.item(i).name + '</a></li>'
                             );
                     }
-					
-					
-					
-				
                     if (results.item(0).id == days)
                     {
                         buildingDays = false;
@@ -438,12 +421,9 @@ function mobileProgramme() {
                 }
                 )
         }
-		
     }
-	
     var buildStages = function() {
         if (debug == true) console.log(Date.now() + ' buildStages called');
-		
         sql = '\
 			SELECT tblStage.name as stageName, publishTimes, actID, tblAct.name, time, page, stageID, day FROM tblStage, tblActStage, tblAct \
 			WHERE tblStage.id = tblActStage.stageID \
@@ -494,11 +474,7 @@ function mobileProgramme() {
                         '<li><a href="#act_' + actID +
                         '">' + actText + '</a></li>'
                         );
-					
-					
                 }
-						
-				
                 buildingStages = false;
                 if (buildingDays == false && buildingStages == false && buildingActs == false) {
                     gotoPage(startPage);
@@ -510,9 +486,7 @@ function mobileProgramme() {
                 logError('error selecting Acts from database')
             }
             )
-		
     }
-	
     var buildActs = function() {
         if (debug == true) console.log(Date.now() + ' buildActs called');
         //Note only build for where page is null
@@ -560,9 +534,7 @@ function mobileProgramme() {
                 logError('error selecting Acts from database')
             }
             )
-		
     }
-	
     var buildAllPages = function() {
         if (debug == true) console.log(Date.now() + " buildAllPages called");
         buildingStages = true;
@@ -574,18 +546,13 @@ function mobileProgramme() {
         }
         buildStages();
         buildActs();
-		
-		
     }
-	
-	
     var gotoPage = function(page)
     {
         if (debug == true) console.log(Date.now() + " gotoPage called with " + page);
         $.mobile.changePage(page);
         
     }
-		
     
     var logError = function(msg)
     {
@@ -599,7 +566,6 @@ function mobileProgramme() {
             if (local.dbVersion == 0)
             {
                 gotoPage('#noDataNoNetwork');
-				
             } else {
                 if (debug == true) console.log(Date.now() + ' Not Online - carry on with local data only');
                 updated = true;

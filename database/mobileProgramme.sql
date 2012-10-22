@@ -55,5 +55,5 @@ CREATE TABLE tblVersion (
   dbVersion REAL
 );
 
-INSERT INTO tblVersion VALUES (0.1, 0);
+INSERT INTO tblVersion VALUES (1, 0);
 
