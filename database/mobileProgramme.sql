@@ -52,8 +52,9 @@ ORDER BY displayOrder;
 DROP TABLE IF EXISTS tblVersion;
 CREATE TABLE tblVersion (
   appVersion REAL PRIMARY KEY,
-  dbVersion REAL
+  dbVersion REAL,
+  imgVersion REAL
 );
 
-INSERT INTO tblVersion VALUES (1, 0);
+INSERT INTO tblVersion VALUES (1, 0, 0);
 

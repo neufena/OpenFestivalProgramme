@@ -1,6 +1,5 @@
 CACHE MANIFEST
-# v1.1 - 2012-10-22
-
+# v1.1
 
 CACHE:
 /index.html
@@ -20,12 +19,8 @@ CACHE:
 /images/splashLogos/logo_600.jpg
 /images/ajax-loader.gif
 /js/config.js
-/js/html5sql.js
+/js/html5sql.min.js
 /js/jquery-1.8.2.min.js
 /js/jquery-ui-1.9.0.custom.min.js
 /js/jquery.mobile-1.2.0.min.js
 /js/mobileProgrammeClass.js
-
-NETWORK:
-/AJAX/requestHander.php
-/offline.manifest

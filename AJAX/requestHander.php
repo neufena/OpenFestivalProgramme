@@ -20,10 +20,15 @@ switch ($_GET['action']) {
         $version = array();
         $version['appVersion'] = $prog->getAppVersion();
         $version['dbVersion'] = $prog->getDBVersion();
+        $version['imgVersion'] = $prog->getImgVersion();
         echo json_encode($version);
         break;
     case 'getData';
         $data = $prog->getAllData();
+        echo json_encode($data);
+        break;
+	case 'getImages';
+        $data = $prog->getAllImages();
         echo json_encode($data);
         break;
 }

@@ -2,32 +2,36 @@
 <!DOCTYPE html> 
 <html manifest="offline.manifest">
     <head>
-        <title></title> 
+        <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
         <link rel="stylesheet" href="css/style.css" />
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.0.custom.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.2.0.min.js"></script>
-        <script type="text/javascript" src="js/html5sql.js"></script>
+        <script type="text/javascript" src="js/html5sql.min.js"></script>
         <script type="text/javascript" src="js/config.js"></script>
         <script type="text/javascript" src="js/mobileProgrammeClass.js"></script>
         <script type="text/javascript">
             var prog = new mobileProgramme();
-            
+
             url = (window.location.hash);
-            if(url == '') {
+            if(url == '' || url == '#error' || url == '#splash') {
                 prog.setStartPage('#home');
             }
-            else {
+            else
+            {
                 prog.setStartPage(url);
             }
-			
+
             prog.initProgramme();
-			
+
             $(document).bind( "pageinit", function() {
                 $(document).bind( "pagebeforechange", function(e, data) {
-                    if (debug == true) console.log(Date.now() + ' pagebeforechange event');
+                    if (debug == true)
+                    {
+                        console.log(Date.now() + ' DEBUG:- pagebeforechange event');
+                    }
                     if ( typeof data.toPage === "string" ) {
                         url = (data.toPage.split('#'));
                         basePage = url[1].split('_');
@@ -36,27 +40,27 @@
                         }
                     }
                 });
-                
+
             });
-            
+
         </script>
-    </head> 
+    </head>
     <body>
         <div data-role="page" id="splash">
-            <div data-role="content"> 
+            <div data-role="content">
                 <div id="loadingLogo"></div>
                 <img src="images/ajax-loader.gif" alt="loading..." id="ajax-logo" />
                 <h3>Updating Programme Data, won't be long...</h3>
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div data-role="page" id="home">          
+        <div data-role="page" id="home">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
-            <div data-role="content"> 
+            <div data-role="content">
                 <!--days or stages for 1 day event -->
                 <ul id="homeMainList" data-role="listview" data-inset="true">
 
@@ -71,14 +75,14 @@
             </div><!-- /footer -->
         </div><!-- /page -->
 
-        <div data-role="page" id="artists" data-add-back-btn="true">          
+        <div data-role="page" id="artists" data-add-back-btn="true">
             <div class="header" data-role="header" >
                 <h1></h1> <!-- Name of event -->
                 <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
-            <div data-role="content"> 
+            <div data-role="content">
                 <!--days or stages for 1 day event -->
                 <ul id="artistsMainList" data-role="listview" data-inset="true">
 
@@ -96,7 +100,7 @@
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
-            <div data-role="content"> 
+            <div data-role="content">
                 <!--stages  -->
                 <ul class="dayMainList" data-role="listview" data-inset="true">
 
@@ -114,7 +118,7 @@
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
-            <div class="actContent" data-role="content"> 
+            <div class="actContent" data-role="content">
 
             </div><!-- /content -->
             <div class="footer" data-role="footer">
@@ -129,7 +133,7 @@
                 <div class="logoWrap">
                 </div>
             </div><!-- /header -->
-            <div class="stageContent" data-role="content"> 
+            <div class="stageContent" data-role="content">
                 <!--days or stages for 1 day event -->
                 <ul class ="stageMainList" data-role="listview" data-inset="true">
 
@@ -145,7 +149,7 @@
                 <h2>Error</h2> <!-- Name of event -->
                 <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
             </div><!-- /header -->
-            <div id ="errorContent" data-role="content"> 
+            <div id ="errorContent" data-role="content">
                 <p><strong>An Error Has Occurred</strong></p>
                 <p>Please close and reopen the programme</p>
 
