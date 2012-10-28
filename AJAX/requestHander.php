@@ -26,8 +26,7 @@ switch ($_GET['action']) {
     case 'getData';
         $data = $prog->getAllData();
         echo json_encode($data);
-        break;
-	case 'getImages';
+    case 'getImages';
         $data = $prog->getAllImages();
         echo json_encode($data);
         break;

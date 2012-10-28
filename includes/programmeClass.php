@@ -59,7 +59,8 @@ class programme
                 $acts[$k]['image'] = 'http://' . $_SERVER['HTTP_HOST'] . '/images/' . $act['image'];
             }
             if ($act['video'] != '') {
-                $acts[$k]['videothumb'] = 'http://' . $_SERVER['HTTP_HOST'] . '/images/youtube/' . $act['video'] . '.jpg';
+                $acts[$k]['videothumb'] = 'http://' . $_SERVER['HTTP_HOST'] .
+                        '/images/youtube/' . $act['video'] . '.jpg';
             }
         }
         $versions = array(
