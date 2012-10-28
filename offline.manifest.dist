@@ -24,3 +24,6 @@ CACHE:
 /js/jquery-ui-1.9.0.custom.min.js
 /js/jquery.mobile-1.2.0.min.js
 /js/mobileProgrammeClass.js
+
+NETWORK:
+/AJAX/requestHander.php
