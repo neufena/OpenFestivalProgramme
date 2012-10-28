@@ -1,5 +1,5 @@
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html manifest="offline.manifest">
     <head>
         <title></title>
@@ -16,7 +16,7 @@
             var prog = new mobileProgramme();
 
             url = (window.location.hash);
-            if(url == '' || url == '#error' || url == '#splash') {
+            if(url == '' || url == '#error' || url == '#splash' || url == '#noDataNoNetwork') {
                 prog.setStartPage('#home');
             }
             else
