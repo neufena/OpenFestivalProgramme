@@ -228,6 +228,8 @@ function mobileProgramme() {
                 },
                 function(error, statement) {
                     //TODO Try to kill and rebuild whole DB
+                    console.log(error);
+                    console.log(statement);
                     logError('error updating database');
 
                 }
