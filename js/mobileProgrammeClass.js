@@ -63,7 +63,10 @@ function mobileProgramme() {
         checkDbVersion();
     };
 
-    this.removeDatabaseVersion = function() {
+    this.removeDatabaseVersion = function(reload) {
+        logDebug('removeDatabaseVersion called');
+
+
         html5sql.openDatabase(
             databaseName,
             displayName,
@@ -72,6 +75,10 @@ function mobileProgramme() {
         html5sql.process(
             'DROP TABLE IF EXISTS tblVersion; DROP TABLE IF EXISTS tblAct; DROP TABLE IF EXISTS tblActStage; DROP TABLE IF EXISTS tblEvent; DROP TABLE IF EXISTS tblStage;',
             function() {
+                if (reload === true)
+                {
+                    window.location.reload();
+                }
                 if (tryRebuild == true)
                 {
                     initProgramme();
@@ -94,7 +101,7 @@ function mobileProgramme() {
     {
         logDebug('checkDbVersion called');
         html5sql.process(
-            'SELECT * FROM tblVersion ORDER BY appVersion, dbVersion',
+            'SELECT * FROM tblVersion ORDER BY appVersion DESC, dbVersion',
             function(tx, results) {
                 compareVersions(tx, results);
             },
@@ -113,15 +120,30 @@ function mobileProgramme() {
             function(rtn) {
                 if (
                     local.appVersion != rtn.appVersion && local.appVersion != 0
-                )
-                {
-                    startPage = '#upgrade';
-                    updated = true;
-                    populateEvent();
+                    )
+                    {
+                    if ( phoneGap ) {
+                        startPage = '#upgrade';
+                        updated = true;
+                        populateEvent();
+                    } else {
+                        prog.removeDatabaseVersion(true);
+                    }
                 }
                 else if (local.dbVersion != rtn.dbVersion)
                 {
-                    updateData();
+
+                    if (
+                        Math.floor(local.dbVersion) != Math.floor(rtn.dbVersion) && local.dbVersion != 0
+                        )
+                        {
+                        loadCreateSQL();
+                    }
+                    else
+                    {
+                        updateData();
+                    }
+
                 }
                 else if (local.imgVersion != rtn.imgVersion)
                 {
@@ -198,91 +220,91 @@ function mobileProgramme() {
     var updateImg = function() {
         logDebug('updateImg called');
         $.get(ajaxHost + 'AJAX/requestHander.php?action=getImages',
-        function(rtn)
-        {
-            var sql = [];
-            $.each(rtn, function(id, data) {
+            function(rtn)
+            {
+                var sql = [];
+                $.each(rtn, function(id, data) {
 
-                if (id != 0) {
-                    updateString = 'UPDATE tblAct SET ';
-                    if (data.image != undefined) {
-                        updateString += 'image = "' + data.image + '" ';
-                    }
-                    if (data.image != undefined & data.videothumb != undefined)
-                    {
+                    if (id != 0) {
+                        updateString = 'UPDATE tblAct SET ';
+                        if (data.image != undefined) {
+                            updateString += 'image = "' + data.image + '" ';
+                        }
+                        if (data.image != undefined & data.videothumb != undefined)
+                        {
                             updateString += ',';
-                    }
-                    if (data.videothumb != undefined) {
-                        updateString += 'videothumb = "' +
+                        }
+                        if (data.videothumb != undefined) {
+                            updateString += 'videothumb = "' +
                             data.videothumb + '" ';
+                        }
+                        updateString += 'WHERE id = ' + id;
+                        sql.push(updateString);
                     }
-                    updateString += 'WHERE id = ' + id;
-                    sql.push(updateString);
-                }
-            });
-            sql.push('UPDATE tblVersion SET imgVersion = ' + rtn[0].imgVersion);
-            html5sql.process(
-                sql,
-                function(tx, results) {
-                    updateImageTags();
-                },
-                function(error, statement) {
-                    //TODO Try to kill and rebuild whole DB
-                    console.log(error);
-                    console.log(statement);
-                    logError('error updating database');
+                });
+                sql.push('UPDATE tblVersion SET imgVersion = ' + rtn[0].imgVersion);
+                html5sql.process(
+                    sql,
+                    function(tx, results) {
+                        updateImageTags();
+                    },
+                    function(error, statement) {
+                        //TODO Try to kill and rebuild whole DB
+                        console.log(error);
+                        console.log(statement);
+                        logError('error updating database');
 
-                }
-                );
-        });
+                    }
+                    );
+            });
     };
 
     var updateImageTags = function() {
         logDebug('updateImageTags called');
         var sql = 'SELECT id, image, videothumb FROM tblAct WHERE image != "" OR videothumb != ""';
         html5sql.process(
-                sql,
-                function(tx, results) {
-                    numRows = results.rows.length;
-                    for (var i = 0; i < numRows; i++) {
-                        var id = results.rows.item(i).id;
-                        if ($('#act_' + id).length != 0)
-                        {
-                            if (results.rows.item(i).image != null &&
-                                results.rows.item(i).image != '')
+            sql,
+            function(tx, results) {
+                numRows = results.rows.length;
+                for (var i = 0; i < numRows; i++) {
+                    var id = results.rows.item(i).id;
+                    if ($('#act_' + id).length != 0)
+                    {
+                        if (results.rows.item(i).image != null &&
+                            results.rows.item(i).image != '')
                             {
-                                var img = $('#act_' + id + ' div.picture img');
-                                if (img.attr('src').substring(0, 4) != 'data')
-                                {
-                                    img.attr('src', 'data:image/jpeg;base64,' +
-                                        results.rows.item(i).image);
-                                }
-                            }
-
-                            if (results.rows.item(i).videothumb != null &&
-                                results.rows.item(i).videothumb != '') {
-                                var video = $('#act_' + id + ' div.video a img');
-                                if (video.attr('src').substring(0, 4) != 'data')
-                                {
-                                    video.attr(
-                                        'src',
-                                        'data:image/jpeg;base64,' +
-                                        results.rows.item(i).videothumb
-                                    );
-                                }
+                            var img = $('#act_' + id + ' div.picture img');
+                            if (img.attr('src').substring(0, 4) != 'data')
+                            {
+                                img.attr('src', 'data:image/jpeg;base64,' +
+                                    results.rows.item(i).image);
                             }
                         }
 
-
+                        if (results.rows.item(i).videothumb != null &&
+                            results.rows.item(i).videothumb != '') {
+                            var video = $('#act_' + id + ' div.video a img');
+                            if (video.attr('src').substring(0, 4) != 'data')
+                            {
+                                video.attr(
+                                    'src',
+                                    'data:image/jpeg;base64,' +
+                                    results.rows.item(i).videothumb
+                                    );
+                            }
+                        }
                     }
-                },
-                function(error, statement) {
-                    //TODO Try to kill and rebuild whole DB
-                    logError('error selecting acts from database');
+
 
                 }
-                );
-        //For each img in tblAct try and get tag and update if exists
+            },
+            function(error, statement) {
+                //TODO Try to kill and rebuild whole DB
+                logError('error selecting acts from database');
+
+            }
+            );
+    //For each img in tblAct try and get tag and update if exists
     };
 
     var populateEvent = function() {
@@ -318,10 +340,10 @@ function mobileProgramme() {
             endDate.setDate(date.getDate() + days - 1);
             if (date.getMonth() == endDate.getMonth()) {
                 footerText = $.datepicker.formatDate('dd', date) + ' - ' +
-                    $.datepicker.formatDate('dd MM yy', endDate);
+                $.datepicker.formatDate('dd MM yy', endDate);
             } else {
                 footerText = $.datepicker.formatDate('dd M', date) + ' - ' +
-                    $.datepicker.formatDate('dd M yy', endDate);
+                $.datepicker.formatDate('dd M yy', endDate);
             }
         }
         buildArtists();
@@ -455,7 +477,7 @@ function mobileProgramme() {
                         linkText = results.rows.item(i).name;
                     } else {
                         linkText = results.rows.item(i).time + ' - ' +
-                            results.rows.item(i).name;
+                        results.rows.item(i).name;
                     }
                     $('#stageMainList').append(
                         '<li><a href="#act?id=' + id +
@@ -502,7 +524,7 @@ function mobileProgramme() {
                     {
                         list.append(
                             '<li><a href="#stage_' + results.item(i).stageID +
-                                '_' + results.item(i).id +
+                            '_' + results.item(i).id +
                             '">' + results.item(i).name + '</a></li>'
                             );
                     }
@@ -536,7 +558,7 @@ function mobileProgramme() {
                 for (var i = 0; i < results.length; i++) {
                     if (stageID != results.item(i).stageID ||
                         stageDay != results.item(i).day)
-                    {
+                        {
                         stageName = results.item(i).stageName;
                         stagePublishTimes = results.item(i).publishTimes;
                         stageID = results.item(i).stageID;
@@ -545,7 +567,7 @@ function mobileProgramme() {
                         thisDate = new Date(date);
                         thisDate.setDate(date.getDate() + dayMod);
                         thisStageText = stageName + ' - ' +
-                            $.datepicker.formatDate('DD', thisDate);
+                        $.datepicker.formatDate('DD', thisDate);
                         newStage = $('#stage').clone();
                         newID = 'stage_' + stageID + '_' + stageDay;
                         newStage.attr('id', newID);
@@ -558,7 +580,7 @@ function mobileProgramme() {
                     }
                     if (results.item(i).publishTimes == 1) {
                         actText = results.item(i).time + ': ' +
-                            results.item(i).name;
+                        results.item(i).name;
                     }
                     else
                     {
@@ -613,14 +635,14 @@ function mobileProgramme() {
                         {
                             case 'http':
                                 actContent.append(
-                                '<div class="picture"><img src="' +
+                                    '<div class="picture"><img src="' +
                                     results.item(i).image +
                                     '" alt="' + results.item(i).name +
                                     '" /></div>');
                                 break;
                             default:
                                 actContent.append(
-                                '<div class="picture"><img src="data:image/jpeg;base64,' +
+                                    '<div class="picture"><img src="data:image/jpeg;base64,' +
                                     results.item(i).image +
                                     '" alt="' + results.item(i).name +
                                     '" /></div>');
@@ -641,7 +663,7 @@ function mobileProgramme() {
                         {
                             case 'http':
                                 actContent.append(
-                                '<div class="video"><a href="http://m.youtube.com/watch?v=' +
+                                    '<div class="video"><a href="http://m.youtube.com/watch?v=' +
                                     results.item(i).video +
                                     '"><img src="' +
                                     results.item(i).videothumb +

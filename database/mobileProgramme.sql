@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS tblStage;
 
 DROP VIEW IF EXISTS tblDay;
 CREATE VIEW tblDay AS
-SELECT 
+SELECT
 day AS id,
 name,
 stageID
@@ -56,5 +56,5 @@ CREATE TABLE tblVersion (
   imgVersion REAL
 );
 
-INSERT INTO tblVersion VALUES (1, 0, 0);
+INSERT INTO tblVersion VALUES (0, 0, 0);
 

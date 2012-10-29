@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v1.1
+# v1.5
 
 CACHE:
 /index.html
@@ -12,7 +12,6 @@ CACHE:
 /css/images/icons-18-white.png
 /css/images/icons-36-black.png
 /css/images/icons-36-black.png
-/database/mobileProgramme.sql
 /images/splashLogos/logo_200.jpg
 /images/splashLogos/logo_300.jpg
 /images/splashLogos/logo_500.jpg
@@ -27,3 +26,4 @@ CACHE:
 
 NETWORK:
 /AJAX/requestHander.php
+/database/mobileProgramme.sql
