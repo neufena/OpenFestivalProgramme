@@ -122,7 +122,7 @@ function mobileProgramme() {
                     local.appVersion != rtn.appVersion && local.appVersion != 0
                     )
                     {
-                    if ( phoneGap ) {
+                    if (phoneGap) {
                         startPage = '#upgrade';
                         updated = true;
                         populateEvent();
