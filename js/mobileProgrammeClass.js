@@ -3,7 +3,7 @@ function mobileProgramme() {
     {
         if (debug === true) {
             console.log(Date.now() + ' DEBUG:- ' + msg);
-            if(phoneGap == true) {
+            if (phoneGap == true) {
                 ($('#splash #loadingMessages')).append(msg + '<br />');
             }
         }
@@ -720,7 +720,7 @@ function mobileProgramme() {
     var logError = function(msg)
     {
         console.log(Date.now() + ' ERROR:- ' + msg);
-        if(phoneGap == true) {
+        if (phoneGap == true) {
                 ($('#splash #loadingMessages')).append(' ERROR:- ' + msg + '<br />');
             }
         gotoPage('#error');
