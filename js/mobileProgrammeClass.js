@@ -3,6 +3,9 @@ function mobileProgramme() {
     {
         if (debug === true) {
             console.log(Date.now() + ' DEBUG:- ' + msg);
+            if(phoneGap == true) {
+                ($('#splash #loadingMessages')).append(msg + '<br />');
+            }
         }
     };
     logDebug('mobileProgramme Class instantiated');
@@ -161,7 +164,7 @@ function mobileProgramme() {
 
     var loadCreateSQL = function(error, statement) {
         logDebug('loadCreateSQL called');
-        $.get('database/mobileProgramme.sql',
+        $.get(ajaxHost + 'database/mobileProgramme.sql',
         {
             '_': $.now()
         },
@@ -717,6 +720,9 @@ function mobileProgramme() {
     var logError = function(msg)
     {
         console.log(Date.now() + ' ERROR:- ' + msg);
+        if(phoneGap == true) {
+                ($('#splash #loadingMessages')).append(' ERROR:- ' + msg + '<br />');
+            }
         gotoPage('#error');
     };
 

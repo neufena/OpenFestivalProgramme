@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.mitchellweb.programme"
+        versionCode="10"
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Mobile Festival Programme</name>
+
+    <description>
+        Testing version of MFP.
+    </description>
+
+    <author href="http://www.mitchellweb.co.uk" email="support@mitchellweb.co.uk">
+        John Mitchell
+    </author>
+
+	<preference name="android-installLocation" value="auto" />
+
+	<preference name="permissions" value="none"/>
+
+	<access origin="http://mfp.minusmoney.co.uk" />
+</widget>
