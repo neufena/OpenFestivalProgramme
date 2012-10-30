@@ -15,7 +15,7 @@ cp index.html ../build/packages
 cp .htaccess ../build/packages
 cp offline.manifest.dist ../build/packages
 mv ../build/packages/mobileProgrammeClass.min.js ../build/packages/js/mobileProgrammeClass.js
-mv ../build/packages/js/config.dist.js ../build/packages/web/config.js
+mv ../build/packages/js/config.dist.js ../build/packages/config.js
 cp config.dist.xml ../build/packages/config.xml
 
 cd ../build/packages
