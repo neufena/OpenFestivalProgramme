@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html manifest="offline.manifest">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.0.custom.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.2.0.min.js"></script>
+        <script type="text/javascript" src="js/html5sql.min.js"></script>
+        <script type="text/javascript" src="js/config.js"></script>
+        <script type="text/javascript" src="js/mobileProgrammeClass.js"></script>
+        <script type="text/javascript">
+            var prog = new mobileProgramme();
+
+            url = (window.location.hash);
+            if(url == '' || url == '#error' || url == '#splash' || url == '#noDataNoNetwork') {
+                prog.setStartPage('#home');
+            }
+            else
+            {
+                prog.setStartPage(url);
+            }
+
+            prog.initProgramme();
+
+            $(document).bind( "pageinit", function() {
+                $(document).bind( "pagebeforechange", function(e, data) {
+                    if (debug == true)
+                    {
+                        console.log(Date.now() + ' DEBUG:- pagebeforechange event');
+                    }
+                    if ( typeof data.toPage === "string" ) {
+                        url = (data.toPage.split('#'));
+                        basePage = url[1].split('_');
+                        if(basePage[0] == "day") {
+                            prog.setCurrentDay(basePage[1])
+                        }
+                    }
+                });
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <div data-role="page" id="splash">
+            <div data-role="content">
+                <div id="loadingLogo"></div>
+                <img src="images/ajax-loader.gif" alt="loading..." id="ajax-logo" />
+                <h3>Updating Programme Data, won't be long...</h3>
+                <div id="loadingMessages"></div>
+            </div><!-- /content -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="home">
+            <div class="header" data-role="header" >
+                <h1></h1> <!-- Name of event -->
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div data-role="content">
+                <!--days or stages for 1 day event -->
+                <ul id="homeMainList" data-role="listview" data-inset="true">
+
+                </ul>
+
+                <ul id="homeStaticList" data-role="listview" data-inset="true">
+                    <li><a href="#artists">Artists A-Z</a></li>
+                </ul>
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="artists" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div data-role="content">
+                <!--days or stages for 1 day event -->
+                <ul id="artistsMainList" data-role="listview" data-inset="true">
+
+                </ul>
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="day" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div data-role="content">
+                <!--stages  -->
+                <ul class="dayMainList" data-role="listview" data-inset="true">
+
+                </ul>
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="act" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div class="actContent" data-role="content">
+
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="stage" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1></h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div class="stageContent" data-role="content">
+                <!--days or stages for 1 day event -->
+                <ul class ="stageMainList" data-role="listview" data-inset="true">
+
+                </ul>
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="error" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h2>Error</h2> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+            </div><!-- /header -->
+            <div id ="errorContent" data-role="content">
+                <p><strong>An Error Has Occurred</strong></p>
+                <p>Please close and reopen the programme</p>
+
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+        <div data-role="page" id="upgrade" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1>Error</h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div id ="upgradeContent" data-role="content">
+                <p><strong>Upgrade Required</strong></p>
+                <p>There is a new version of this programme avaliable, please downloaded it.</p>
+                <p>You can still view the current programme but will not get any updates until you upgrade the app</p>
+
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <div data-role="page" id="noDataNoNetwork" data-add-back-btn="true">
+            <div class="header" data-role="header" >
+                <h1>Error</h1> <!-- Name of event -->
+                <a href="#home" data-icon="home" class="ui-btn-right ui-btn ui-btn-up-a ui-shadow ui-btn-corner-all ui-btn-icon-left" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Home</span><span class="ui-icon ui-icon-home ui-icon-shadow">&nbsp;</span></span></a>
+                <div class="logoWrap">
+                </div>
+            </div><!-- /header -->
+            <div id ="noDataNoNetworkContent" data-role="content">
+                <p><strong>No Data, No Network, No Worky!</strong></p>
+                <p>The programme data needs to download the programme data but you're not online.  Please connect to the internet and try again</p>
+
+            </div><!-- /content -->
+            <div class="footer" data-role="footer">
+                <h1></h1> <!-- Dates of event -->
+            </div><!-- /footer -->
+        </div><!-- /page -->
+    </body>
+</html>
